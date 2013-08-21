@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:PersonalViewBase
+	xmlns:view="org.hil.personal.view.*"
+	xmlns:component="org.hil.core.components.*"
+	xmlns:head="org.hil.core.layout.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:hc="com.hillelcoren.components.*"
+	width="100%" 
+	height="100%"
+	label="{resourceManager.getString('Personal','personal_information')}">
+	
+	<mx:Script>
+		<![CDATA[			
+			import org.hil.core.model.SystemUser;
+			import mx.controls.DateField; 
+		]]>
+	</mx:Script>		
+	<mx:VBox 
+		id="detailInformationVBox" left="10" right="20" width="100%" height="100%" styleName="glassPods">
+		<head:GlassHeaders headerTitle="{resourceManager.getString('Personal','detail_information')}"/>
+		<mx:Form width="100%">					
+			<mx:FormItem 
+				label="{resourceManager.getString('Personal','province')}"
+				labelWidth="120" >
+				<component:TextInputUTF8																			
+					editable="false"
+					width="150" text="{globalUserAuthentication.user.commune.district.province.provinceName}"/>														
+			</mx:FormItem>	
+			<mx:FormItem 
+				label="{resourceManager.getString('Personal','district')}"
+				labelWidth="120" >					
+				<component:TextInputUTF8																			
+					editable="false"
+					width="150" text="{globalUserAuthentication.user.commune.district.districtName}"/>												
+			</mx:FormItem>
+			<mx:FormItem 
+				label="{resourceManager.getString('Personal','commune')}"
+				labelWidth="120" >					
+				<component:TextInputUTF8																			
+					editable="false"
+					width="150" text="{globalUserAuthentication.user.commune.communeName}"/>							
+			</mx:FormItem>
+		</mx:Form>
+		
+		<mx:Form width="100%">
+			<mx:FormItem 				
+				label="{resourceManager.getString('Personal','account_name')}" 
+				labelWidth="120" >
+				<component:TextInputUTF8 
+					id="textAccountName"
+					text="{globalUserAuthentication.user.systemAccount.accountName}"
+					required="true" editable="false"
+					enableValidator="true"
+					minTextValidatorLength="2"/>
+			</mx:FormItem>
+			<mx:FormItem 
+				label="{resourceManager.getString('Personal','current_password')}"				
+				labelWidth="120">
+				<component:TextInputUTF8  
+					id="textCurrentPassword"
+					displayAsPassword="true"  
+					text=""								
+					required="true" 
+					enableValidator="true"
+					minTextValidatorLength="2" change="{enterCurrentPassword();}"/>
+			</mx:FormItem>
+			<mx:FormItem 
+				label="{resourceManager.getString('Personal','new_password')}"				
+				labelWidth="120">
+				<component:TextInputUTF8  
+					id="textNewPassword"
+					displayAsPassword="true"  
+					text=""								
+					required="true" 
+					enableValidator="true"
+					minTextValidatorLength="2" />
+			</mx:FormItem>
+			<mx:FormItem 
+				label="{resourceManager.getString('Personal','retype_password')}"				
+				labelWidth="120">
+				<component:TextInputUTF8   
+					id="textRetypePassword"
+					displayAsPassword="true" 
+					text=""								
+					enableValidator="true"
+					minTextValidatorLength="2" />
+			</mx:FormItem>
+			<mx:HBox height="10" width="95%" />
+			<mx:FormItem labelWidth="20" >
+				<mx:HBox width="100%" >
+					<mx:Button 
+						id="buttonSaveSystemUser" 
+						label="{resourceManager.getString('Personal','save')}"
+						click="{										
+							savePassword();
+						}"
+						keyDown="{										
+							savePasswordKeyboardEventHandler(event);
+						}" 
+						enabled="true" />					
+				</mx:HBox>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:VBox>	
+</view:PersonalViewBase>

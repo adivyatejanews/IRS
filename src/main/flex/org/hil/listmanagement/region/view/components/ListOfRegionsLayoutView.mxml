@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ListOfRegionsLayoutViewBase 
+	xmlns:view="org.hil.listmanagement.region.view.*"
+	xmlns:subview="org.hil.listmanagement.region.view.components.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" 
+	height="100%">
+	
+	<mx:VBox width="100%" height="100%">
+		<mx:TabNavigator 
+			width="100%" 
+			height="100%" 
+			horizontalScrollPolicy="off" 
+			styleName="styleControlTabNavigator" 
+			tabWidth="160" 
+			verticalScrollBarStyleName="fseVerticalScrollBar" >
+			<subview:ProvinceTabPanelView id="provinceTabPanelView" />
+			<subview:DistrictTabPanelView id="districtTabPanelView" />
+			<subview:CommuneTabPanelView id="communeTabPanelView" />
+			<subview:VillageTabPanelView id="villageTabPanelView" />
+		</mx:TabNavigator>
+	</mx:VBox>
+	
+</view:ListOfRegionsLayoutViewBase>

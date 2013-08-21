@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ChooserPopUpViewBase xmlns:view="org.hil.core.components.*"
+						   xmlns:mx="http://www.adobe.com/2006/mxml"
+						   xmlns:head="org.hil.core.layout.*"
+						   xmlns:component="org.hil.core.components.*"
+						   width="100%" height="100%"
+						   close="{      PopUpManager.removePopUp(this);  }"
+						   roundedBottomCorners="true" showCloseButton="true" title="{popupTitle}">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+		]]>
+	</mx:Script>
+
+	<mx:VBox height="100%">
+		<mx:VBox left="10" right="10" top="10" bottom="20">
+			<component:DataGrid id="idDataGrid" width="100%" dataProvider="{dataProvider}"
+								doubleClickEnabled="true" dropShadowEnabled="true" editable="false"
+								itemDoubleClick="{      handleSelectItem();      PopUpManager.removePopUp(this);     }"
+								keyDown="{      handleSelectItemKeyboard(event);      if(event.charCode == 13 || event.charCode == 27){       PopUpManager.removePopUp(this);      }     }"
+								rowCount="10" selectable="true"
+								selectedItem="{chooser.selectedItem}"
+								verticalGridLineColor="#AAAAAA" verticalGridLines="true"
+								wordWrap="true">
+				<component:columns>
+					<component:DataGridColumn width="50" dataField="{dataFieldID}"
+											  headerText="{columnIDTitle}"/>
+					<component:DataGridColumn width="200" dataField="{dataFieldName}"
+											  headerText="{columnNameTitle}" sortDescending="false"
+											  wordWrap="true"/>
+
+				</component:columns>
+			</component:DataGrid>
+		</mx:VBox>
+	</mx:VBox>
+	<mx:VBox height="100%">
+		<mx:VBox left="10" right="10" top="10" bottom="20">
+			<mx:Form>
+				<mx:FormItem>
+					<mx:HBox horizontalAlign="center">
+						<mx:Button label="{buttonLabel}"
+								   click="{         PopUpManager.removePopUp(this);        }"/>
+					</mx:HBox>
+				</mx:FormItem>
+			</mx:Form>
+		</mx:VBox>
+	</mx:VBox>
+</view:ChooserPopUpViewBase>

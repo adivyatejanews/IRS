@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ProvinceTabPanelViewBase
+	xmlns:view="org.hil.listmanagement.region.view.*"
+	xmlns:component="org.hil.core.components.*"	
+	xmlns:head="org.hil.core.layout.*"
+	xmlns:hc="com.hillelcoren.components.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" 
+	height="100%" 
+	label="{resourceManager.getString('ListOfRegions','list_of_provinces')}">	
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;					
+			import org.hil.core.model.Province;
+			import mx.controls.DateField;		
+	
+		]]>
+	</mx:Script>
+	
+	<mx:HBox width="100%" height="70%" styleName="glassPods" paddingRight="15" paddingLeft="15"  paddingBottom="15" >
+		<mx:VBox width="100%" height="100%" >
+			<head:GlassHeaders headerTitle="{provinces.length}{resourceManager.getString('ListOfRegions','province')}"/>								
+			<component:RowColorDataGrid 			     
+				id="gridProvince"
+				rowCount="8"  
+				dataProvider="{provinces}"				
+				width="100%" 
+				height="100%"				
+				doubleClickEnabled="true"
+				doubleClick="getProvince();" >
+				<component:columns>			
+					<component:DataGridColumn 
+						headerText="{resourceManager.getString('ListOfRegions','province_name')}" 
+						dataField="provinceName"
+						sortable="true" 
+						sortDescending="false" />
+					<component:DataGridColumn 
+						headerText="{resourceManager.getString('ListOfRegions','province_id')}" 
+						dataField="provinceId" 
+						width="150" sortable="true" sortDescending="false"/>												
+					<component:DataGridColumn 
+						headerText="{resourceManager.getString('ListOfRegions','notes')}" 
+						dataField="notes" />				
+				</component:columns>
+			</component:RowColorDataGrid>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HBox 
+		width="100%" 
+		height="30%" 
+		styleName="glassPods" 
+		paddingRight="15" 
+		paddingLeft="15"  
+		paddingBottom="15" >		
+		<mx:VBox width="100%" height="100%">
+			<head:GlassHeaders headerTitle="{resourceManager.getString('ListOfRegions','input_form')}"/>
+			<mx:Form 
+				id="provinceForm" 
+				height="100%"
+				width="100%">
+				<mx:FormItem 
+					label="{resourceManager.getString('ListOfRegions','province_name')}" 
+					required="true"
+					width="100%">
+					<component:TextInputUTF8 
+						id="textProvinceName"							 
+						width="50%"
+						required="true"
+						minTextValidatorLength="2"
+						enableValidator="true"
+						change="{
+							if(textProvinceName.text.length > 0) {
+								buttonSave.enabled=true;
+								textProvinceId.enabled = true;
+								textNotes.enabled = true;
+								buttonReset.enabled = true;
+							} else {
+								buttonSave.enabled=false;
+								textProvinceId.enabled = false;
+								textNotes.enabled = false;
+								buttonReset.enabled = false;
+							}
+						}" />
+				</mx:FormItem>
+				<mx:FormItem 
+					label="{resourceManager.getString('ListOfRegions','province_id')}" 
+					required="true"
+					width="100%">
+					<component:TextInputUTF8 
+						id="textProvinceId"							 
+						width="50%"
+						required="true"
+						minTextValidatorLength="2"
+						enableValidator="true"
+						change="{
+																					
+						}"							
+						focusOut=""
+						updateComplete="enableButtonSave()" />
+				</mx:FormItem>										
+				<mx:FormItem 
+					label="{resourceManager.getString('ListOfRegions','notes')}"
+					width="100%">
+					<component:TextAreaUTF8 
+						id="textNotes"							 
+						width="50%" />
+				</mx:FormItem>
+					<mx:ControlBar 
+						width="100%" 
+						height="100%">
+						<mx:HBox 
+							width="100%" 
+							height="100%">
+							<mx:Button 
+								id="buttonNew" 
+								label="{resourceManager.getString('ListOfRegions','new')}" 
+								click="newProvince()" 
+								enabled="true"
+								keyDown="newKeyboardEventHandler(event)"/>							
+							<mx:Button 
+								id="buttonSave" 
+								label="{resourceManager.getString('ListOfRegions','save')}"
+								click="saveProvince()"								
+								keyDown="saveKeyboardEventHandler(event)"/>													
+							<mx:Button 
+								id="buttonDelete" 
+								label="{resourceManager.getString('ListOfRegions','delete')}" 
+								click="alertDeleteProvince()"								
+								keyDown="deleteKeyboardEventHandler(event)"/>
+							<mx:Button 
+								id="buttonReset" 
+								label="{resourceManager.getString('ListOfRegions','reset')}" 
+								click="resetProvince()"
+								keyDown="resetKeyboardEventHandler(event)"/>
+					</mx:HBox>
+				</mx:ControlBar>
+			</mx:Form>
+		</mx:VBox>		
+	</mx:HBox>
+</view:ProvinceTabPanelViewBase>

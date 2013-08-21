@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListChildrenImmunization" pageWidth="841" pageHeight="595" columnWidth="393" leftMargin="14" rightMargin="14" topMargin="7" bottomMargin="5">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="92"/>
+	<property name="ireport.y" value="0"/>
+	<import value="java.lang.*"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="content" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial.ttf" pdfEncoding="Identity-H"/>
+	<style name="content_bold" style="content" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf"/>
+	<style name="content_italic" style="content" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Italic.ttf"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/htran/HProjects/009 - HIL/05- Program/trunk/server/hil/src/main/webapp/reports/jrxml/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="children" class="java.util.List"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="communeName" class="java.lang.String">
+		<fieldDescription><![CDATA[communeName]]></fieldDescription>
+	</field>
+	<field name="dueDate" class="java.lang.String">
+		<fieldDescription><![CDATA[dueDate]]></fieldDescription>
+	</field>
+	<field name="children" class="java.util.List">
+		<fieldDescription><![CDATA[children]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="5" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="75" y="33" width="16" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Xã:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="50" width="27" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Ngày:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="90" y="33" width="137" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{communeName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="101" y="50" width="137" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dueDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="306" y="6" width="200" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="13" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DANH SÁCH TRẺ TIÊM CHỦNG]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+		<band height="44">
+			<subreport runToBottom="false">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="813" height="44"/>
+				<dataSourceExpression><![CDATA[new JRBeanCollectionDataSource($F{children})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ListChildrenImmunization_DetailChild.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="380" y="0" width="37" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Trang]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="417" y="0" width="42" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

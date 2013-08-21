@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
+    
+    <!-- For mail settings and future properties files -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>   
+                <value>classpath:config.properties</value>             
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="30"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+    </bean>
+    
+    <!-- Global configuration parameters -->
+    <bean id="config" class="org.hil.core.util.Config">
+        <property name="baseReportDir" value="${config.baseReportDir}"/>
+        <property name="smsBeforeDays" value="${config.smsBeforeDays}"/>
+        <property name="smsMsg" value="${config.smsMsg}"/>
+        <property name="javaLibPath" value="${config.javaLibPath}"/>
+        <property name="smsjar" value="${config.smsjar}"/>
+        <property name="smsModemPort" value="${config.smsModemPort}"/>
+        <property name="smsModemBaudRate" value="${config.smsModemBaudRate}"/>
+         <property name="contextPath" value="${config.contextPath}"/>
+    </bean>
+</beans>

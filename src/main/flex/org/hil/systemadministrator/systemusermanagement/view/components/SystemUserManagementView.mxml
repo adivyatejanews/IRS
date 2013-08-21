@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:SystemUserManagementViewBase
+	xmlns:view="org.hil.systemadministrator.systemusermanagement.view.*"
+	xmlns:component="org.hil.core.components.*"
+	xmlns:head="org.hil.core.layout.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:hc="com.hillelcoren.components.*"
+	width="100%" 
+	height="100%"
+	label="{resourceManager.getString('SystemUserManagement','account_information')}">
+	
+	<mx:Script>
+		<![CDATA[			
+			import org.hil.core.model.SystemUser;
+			import mx.controls.DateField; 
+		]]>
+	</mx:Script>	
+	
+	<mx:VBox 
+		id="listOfUsersVBox"		 
+		width="100%" 
+		height="50%" 
+		styleName="glassPods" >
+		<head:GlassHeaders headerTitle="{resourceManager.getString('SystemUserManagement','list_of_users')}"/>		
+		<component:DataGridSortable
+			id="systemAccountGrid" 
+			dropShadowEnabled="true" 
+			verticalGridLines="true" 
+			verticalGridLineColor="#AAAAAA" 
+			doubleClickEnabled="true" 
+			dataProvider="{systemUsers}" 
+			width="100%"
+			height="80%"			  
+			toolTip="{resourceManager.getString('SystemUserManagement','double_click_to_edit')}"						
+			doubleClick="getSystemUser();" >
+			<component:columns>				
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('SystemUserManagement','account_name')}" 
+					dataField="systemAccount.accountName" />
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('SystemUserManagement','location')}" 
+					dataField="commune.communeName" labelFunction="getFullAddress"/>
+			</component:columns>
+		</component:DataGridSortable>
+		<mx:Spacer height="5"/>
+		<mx:HBox>
+			<mx:Spacer width="10" />
+			<mx:Button 
+				id="buttonNewSystemUser"
+				focusEnabled="false"  
+				label="{resourceManager.getString('SystemUserManagement','new')}" 
+				click="newSystemUser(); detailInformationVBox.enabled = true;"
+				keyDown="newSystemUserKeyboardEventHandler(event)" />
+			<mx:Button 
+				id="buttonRefreshListOfSystemUsers"
+				focusEnabled="false"  
+				label="{resourceManager.getString('SystemUserManagement','refresh')}" 
+				click="refreshListOfSystemUsers(); detailInformationVBox.enabled = true;"
+				keyDown="refreshListOfSystemUsersKeyboardEventHandler(event)" />
+		</mx:HBox>		
+	</mx:VBox>
+	
+	<mx:TabNavigator width="100%" height="50%" styleName="styleControlTabNavigator" tabWidth="170" >		
+		<mx:VBox 
+			id="detailInformationVBox" left="10" right="20" width="40%"
+			label = "{resourceManager.getString('SystemUserManagement','detail_information')}" >
+			<mx:Form width="100%">					
+				<mx:FormItem 
+					label="{resourceManager.getString('SystemUserManagement','province')}"
+					labelWidth="120" >
+					<mx:ComboBox
+						id="comboboxProvince"
+						width="200"
+						dataProvider="{provinces}"
+						labelField="provinceName"
+						enabled="true"
+						change="getAllDistricts();" />														
+				</mx:FormItem>	
+				<mx:FormItem 
+					label="{resourceManager.getString('SystemUserManagement','district')}"
+					labelWidth="120" >					
+					<mx:ComboBox
+						id="comboboxDistrict"
+						width="200"
+						dataProvider="{districts4}"
+						labelField="districtName"
+						enabled="true"
+						change="getAllCommunes();" />												
+				</mx:FormItem>
+				<mx:FormItem 
+					label="{resourceManager.getString('SystemUserManagement','commune')}"
+					labelWidth="120" >					
+					<mx:ComboBox
+						id="comboboxCommune"
+						width="200"
+						dataProvider="{communes4}"
+						labelField="communeName"
+						enabled="true" />							
+				</mx:FormItem>
+			</mx:Form>
+			
+			<mx:Form width="100%">
+				<mx:FormItem 				
+					label="{resourceManager.getString('SystemUserManagement','account_name')}" 
+					required="true"
+					labelWidth="120" >
+					<component:TextInputUTF8 
+						id="textAccountName"
+						text=""
+						required="true"
+						enableValidator="true"
+						minTextValidatorLength="2" />
+				</mx:FormItem>
+				<mx:FormItem 
+					label="{resourceManager.getString('SystemUserManagement','password')}" 
+					required="true"
+					labelWidth="120">
+					<component:TextInputUTF8  
+						id="textPassword"
+						displayAsPassword="true"  
+						text=""								
+						required="true" 
+						enableValidator="true"
+						minTextValidatorLength="2" />
+				</mx:FormItem>
+				<mx:FormItem 
+					label="{resourceManager.getString('SystemUserManagement','retype_password')}" 
+					required="true"
+					labelWidth="120">
+					<component:TextInputUTF8   
+						id="textRetypePassword"
+						displayAsPassword="true" 
+						text=""								
+						enableValidator="true"
+						minTextValidatorLength="2" />
+				</mx:FormItem>
+				<mx:HBox height="10" width="95%" />
+				<mx:FormItem labelWidth="20" >
+					<mx:HBox width="100%" >
+						<mx:Button 
+							id="buttonSaveSystemUser" 
+							label="{resourceManager.getString('SystemUserManagement','save')}"
+							click="{										
+								saveSystemUser();
+							}"
+							keyDown="{										
+								saveSystemUserKeyboardEventHandler(event);
+							}" 
+							enabled="true" />
+						<mx:Button 
+							id="buttonResetSystemUser" 
+							label="{resourceManager.getString('SystemUserManagement','reset')}"
+							click="{										
+								resetSystemUser();
+							}"
+							keyDown="{
+								resetSystemUserKeyboardEventHandler(event);
+							}" />
+						<mx:Button 
+							id="buttonDeleteSystemUser" 
+							label="{resourceManager.getString('SystemUserManagement','delete')}"
+							click="alertDeleteSystemUser()"
+							keyDown="deleteSystemUserKeyboardEventHandler(event)"  
+							enabled="false" />
+					</mx:HBox>
+				</mx:FormItem>
+			</mx:Form>
+		</mx:VBox>
+		<mx:VBox
+			id="accountRolesVBox" left="10" right="20" width="40%"
+			label = "{resourceManager.getString('SystemUserManagement','account_role')}" >
+			<mx:HBox width="100%" >
+				<mx:VBox width="40%" >
+					<mx:Label text="{resourceManager.getString('SystemUserManagement','system_role')}" />
+					<component:DataGridSortable
+						id="dataGridSystemRoles"
+						dataProvider="{systemRoles}"
+						dragEnabled="true"
+						dragMoveEnabled="true"
+						dropEnabled="true"
+						width="100%"
+						rowCount="6" 
+						dropShadowEnabled="true" 
+						verticalGridLines="true" 
+						verticalGridLineColor="#AAAAAA" 
+						dragComplete="{
+							buttonSaveAccountRole.enabled = true;
+							buttonMoveLeft.enabled = false;
+							buttonMoveRight.enabled = false;
+						}"
+						itemClick="{
+							buttonMoveRight.enabled = true;
+							buttonMoveLeft.enabled = false;
+						}" >
+						<component:columns>
+							<component:DataGridColumn 
+								headerText="{resourceManager.getString('SystemUserManagement','role')}" 
+								dataField="roleName"
+								sortable="true"
+								sortDescending="false" />
+							<component:DataGridColumn 
+								headerText="{resourceManager.getString('SystemUserManagement','description')}" 
+								dataField="description" />
+						</component:columns>
+					</component:DataGridSortable>
+				</mx:VBox>
+				<mx:VBox 
+					height="100%" 
+					verticalAlign="middle">
+					<mx:Button
+						id="buttonMoveRight"  
+						label="&gt;&gt;" 
+						click="{
+							moveRight();
+							buttonMoveLeft.enabled = false;
+							buttonMoveRight.enabled = false;
+							buttonSaveAccountRole.enabled = true;
+						}"
+						enabled="false"  />
+					<mx:Button 
+						id="buttonMoveLeft"
+						label="&lt;&lt;" 
+						click="{
+							moveLeft();
+							buttonMoveLeft.enabled = false;
+							buttonMoveRight.enabled = false;
+							buttonSaveAccountRole.enabled = true;
+						}"
+						enabled="false"  />
+				</mx:VBox>
+				<mx:VBox width="40%" >
+					<mx:Label text="{resourceManager.getString('SystemUserManagement','user_role')}" />
+					<component:DataGridSortable
+						id="dataGridAccountRoles"
+						dataProvider="{accountRoles}"
+						dragEnabled="true"
+						dragMoveEnabled="true"
+						dropEnabled="true"
+						width="100%"
+						rowCount="6" 
+						dropShadowEnabled="true" 
+						verticalGridLines="true" 
+						verticalGridLineColor="#AAAAAA"
+						dragComplete="{
+							buttonSaveAccountRole.enabled = true;
+							buttonMoveLeft.enabled = false;
+							buttonMoveRight.enabled = false;
+						}"
+						itemClick="{
+							buttonMoveLeft.enabled = true;
+							buttonMoveRight.enabled = false;
+						}" >
+						<component:columns>
+							<component:DataGridColumn 
+								headerText="{resourceManager.getString('SystemUserManagement','role')}" 
+								dataField="roleName"
+								sortable="true"
+								sortDescending="false" />
+							<component:DataGridColumn 
+								headerText="{resourceManager.getString('SystemUserManagement','description')}" 
+								dataField="description" />
+						</component:columns>
+					</component:DataGridSortable>
+				</mx:VBox>
+			</mx:HBox>
+			<mx:VBox width="100%">
+				<mx:FormItem labelWidth="20" >
+					<mx:HBox width="100%" >
+						<mx:Button 
+							id="buttonSaveAccountRole" 
+							label="{resourceManager.getString('SystemUserManagement','save')}"
+							click="saveAccountRoles()"
+							keyDown="saveAccountRolesKeyboardEventHandler(event)"
+							enabled="false" />
+					</mx:HBox>
+				</mx:FormItem>
+			</mx:VBox>
+		</mx:VBox>		
+	</mx:TabNavigator>	
+	
+</view:SystemUserManagementViewBase>

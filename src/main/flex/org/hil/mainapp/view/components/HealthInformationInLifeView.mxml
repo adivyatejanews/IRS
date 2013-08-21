@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<program:HealthInformationInLifeViewBase xmlns:mx="http://www.adobe.com/2006/mxml"
+										 xmlns:program="org.hil.mainapp.view.*"
+										 xmlns:view="org.hil.mainapp.view.components.*"
+										 width="100%" height="99%">
+
+	<mx:Canvas id="navCanvas" width="300" height="100%">
+		<mx:Box width="100%" height="100%" styleName="fseControlBar"/>
+		<mx:Box width="100%" height="100%" backgroundAlpha="1" styleName="fseControlBar">
+			<mx:filters>
+				<flash.filters:BevelFilter xmlns:flash.filters="flash.filters.*"
+										   angle="90" blurX="1" blurY="1" distance="1"
+										   highlightAlpha=".4" highlightColor="0x000000"
+										   knockout="true" shadowAlpha=".4" shadowColor="0xFFFFFF"/>
+			</mx:filters>
+		</mx:Box>
+		<mx:Image id="buttonCloseNav" right="5" top="5" buttonMode="true" click="discloseNav()"
+				  mouseChildren="false" source="{isClosed == false?(closeNav):openNav}"
+				  useHandCursor="true"/>
+		<mx:ViewStack id="navStack" left="5" right="5" top="20" bottom="30">
+			<view:TreeNavigatorView id="treeNav"/>
+			<view:MiniNavigatorView id="miniNav"/>
+		</mx:ViewStack>
+	</mx:Canvas>
+
+	<mx:ViewStack id="healthInformationInLifeView" width="100%" height="100%"
+				  change="changeHealthInformationInLifeView(event)"
+				  creationComplete="healthInformationInLifeViewCreationComplete(event)"
+				  selectedIndex="{globalCurrentView}">		
+	</mx:ViewStack>
+	<mx:Resize id="shrink" duration="1000" effectEnd="navStack.visible = true; " target="{navCanvas}"
+			   widthTo="50"/>
+	<mx:Resize id="grow" duration="1000" effectEnd="navStack.visible = true; " target="{navCanvas}"
+			   widthTo="300"/>
+</program:HealthInformationInLifeViewBase>

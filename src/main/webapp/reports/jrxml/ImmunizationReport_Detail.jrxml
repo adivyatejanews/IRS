@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImmunizationReprot_Detail" pageWidth="813" pageHeight="150" orientation="Landscape" columnWidth="380" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" scriptletClass="net.sf.jasperreports.engine.JRDefaultScriptlet">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="484"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Herder" hAlign="Center" vAlign="Middle" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H"/>
+	<style name="content" vAlign="Middle" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial.ttf" pdfEncoding="Identity-H"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="regionName" class="java.lang.String">
+		<fieldDescription><![CDATA[regionName]]></fieldDescription>
+	</field>
+	<field name="childrenUnder1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[childrenUnder1]]></fieldDescription>
+	</field>
+	<field name="BCG" class="java.lang.Integer">
+		<fieldDescription><![CDATA[BCG]]></fieldDescription>
+	</field>
+	<field name="VGBL24" class="java.lang.Integer">
+		<fieldDescription><![CDATA[VGBL24]]></fieldDescription>
+	</field>
+	<field name="VGBG24" class="java.lang.Integer">
+		<fieldDescription><![CDATA[VGBG24]]></fieldDescription>
+	</field>
+	<field name="DPT_VGB_Hib1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[DPT_VGB_Hib1]]></fieldDescription>
+	</field>
+	<field name="DPT_VGB_Hib2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[DPT_VGB_Hib2]]></fieldDescription>
+	</field>
+	<field name="DPT_VGB_Hib3" class="java.lang.Integer">
+		<fieldDescription><![CDATA[DPT_VGB_Hib3]]></fieldDescription>
+	</field>
+	<field name="OPV1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[OPV1]]></fieldDescription>
+	</field>
+	<field name="OPV2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[OPV2]]></fieldDescription>
+	</field>
+	<field name="OPV3" class="java.lang.Integer">
+		<fieldDescription><![CDATA[OPV3]]></fieldDescription>
+	</field>
+	<field name="measles1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[measles1]]></fieldDescription>
+	</field>
+	<field name="eBCG" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eBCG]]></fieldDescription>
+	</field>
+	<field name="eVGBL24" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eVGBL24]]></fieldDescription>
+	</field>
+	<field name="eVGBG24" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eVGBG24]]></fieldDescription>
+	</field>
+	<field name="eDPT_VGB_Hib1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eDPT_VGB_Hib1]]></fieldDescription>
+	</field>
+	<field name="eDPT_VGB_Hib2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eDPT_VGB_Hib2]]></fieldDescription>
+	</field>
+	<field name="eDPT_VGB_Hib3" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eDPT_VGB_Hib3]]></fieldDescription>
+	</field>
+	<field name="eOPV1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eOPV1]]></fieldDescription>
+	</field>
+	<field name="eOPV2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eOPV2]]></fieldDescription>
+	</field>
+	<field name="eOPV3" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eOPV3]]></fieldDescription>
+	</field>
+	<field name="eMeasles1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[eMeasles1]]></fieldDescription>
+	</field>
+	<field name="amountOfFinish" class="java.lang.Integer">
+		<fieldDescription><![CDATA[amountOfFinish]]></fieldDescription>
+	</field>
+	<field name="protectedTetanusCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[protectedTetanusCases]]></fieldDescription>
+	</field>
+	<field name="reactionNormalCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[reactionNormalCases]]></fieldDescription>
+	</field>
+	<field name="reactionSeriousCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[reactionSeriousCases]]></fieldDescription>
+	</field>
+	<title>
+		<band height="1"/>
+	</title>
+	<columnHeader>
+		<band height="56">
+			<rectangle>
+				<reportElement x="161" y="0" width="44" height="56"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="161" y="5" width="44" height="28"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số trẻ
+< 1 tuổi]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="205" y="20" width="38" height="36"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="207" y="22" width="35" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BCG]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="339" y="20" width="135" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="363" y="22" width="90" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DPT-VGB-Hib]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="23" y="0" width="138" height="56"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="23" y="19" width="138" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Địa phương]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="0" width="23" height="56"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="474" y="20" width="135" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="735" y="0" width="78" height="20"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="205" y="0" width="483" height="20"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="356" y="2" width="142" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Miễn dịch cơ bản]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="736" y="3" width="78" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số ca PƯSTC]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="243" y="20" width="96" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="243" y="39" width="48" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="4" y="19" width="15" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="244" y="22" width="96" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Viêm gan B sơ sinh]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="291" y="39" width="48" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="246" y="40" width="44" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[≤ 24 giờ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="293" y="40" width="44" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[> 24 giờ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="339" y="39" width="45" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="384" y="39" width="45" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="429" y="39" width="45" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="519" y="39" width="45" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="474" y="39" width="45" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="564" y="39" width="45" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="609" y="20" width="40" height="36"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="648" y="20" width="40" height="36"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="688" y="0" width="47" height="56"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="690" y="1" width="44" height="55"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số trẻ
+được bảo
+vệ
+phòng
+UVSS (*)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="735" y="20" width="38" height="36"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="773" y="20" width="40" height="36"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement style="content" x="745" y="24" width="19" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nhẹ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="775" y="23" width="38" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="none">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nghiệm
+trọng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="340" y="40" width="44" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="385" y="40" width="44" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="429" y="40" width="44" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="475" y="40" width="44" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="520" y="40" width="44" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="565" y="40" width="44" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="498" y="22" width="90" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OPV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="616" y="22" width="26" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sởi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="content" x="651" y="22" width="36" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TCĐĐ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="23" y="0" width="138" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="474" y="0" width="45" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="161" y="0" width="44" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="519" y="0" width="45" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement style="content" x="27" y="1" width="130" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{regionName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="161" y="1" width="42" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{childrenUnder1}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="384" y="0" width="45" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="429" y="0" width="45" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="243" y="0" width="48" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="245" y="1" width="44" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VGBL24}+" ("+$F{eVGBL24}+")"]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="23" height="16"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement style="content" x="0" y="0" width="23" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="688" y="0" width="47" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="291" y="0" width="48" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="205" y="0" width="38" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="207" y="1" width="34" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BCG}+" ("+$F{eBCG}+")"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="339" y="0" width="45" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="340" y="1" width="42" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DPT_VGB_Hib1}+" ("+$F{eDPT_VGB_Hib1}+")"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="564" y="0" width="45" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="609" y="0" width="39" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="648" y="0" width="40" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="735" y="0" width="38" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="773" y="0" width="40" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="385" y="1" width="42" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DPT_VGB_Hib2}+" ("+$F{eDPT_VGB_Hib2}+")"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="430" y="1" width="42" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DPT_VGB_Hib3}+" ("+$F{eDPT_VGB_Hib3}+")"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="475" y="1" width="42" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OPV1}+" ("+$F{eOPV1}+")"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="520" y="1" width="42" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OPV2}+" ("+$F{eOPV2}+")"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="565" y="1" width="42" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OPV3}+" ("+$F{eOPV3}+")"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="609" y="1" width="37" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{measles1}+" ("+$F{eMeasles1}+")"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="652" y="1" width="34" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountOfFinish}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="690" y="1" width="43" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{protectedTetanusCases}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="736" y="1" width="35" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reactionNormalCases}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="774" y="1" width="37" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reactionSeriousCases}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="293" y="1" width="44" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VGBG24}+" ("+$F{eVGBG24}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		GRANITE DATA SERVICES Copyright (C) 2007-2008 ADEQUATE SYSTEMS SARL
+		This file is part of Granite Data Services. Granite Data Services is
+		free software; you can redistribute it and/or modify it under the
+		terms of the GNU Lesser General Public License as published by the
+		Free Software Foundation; either version 3 of the License, or (at your
+		option) any later version. Granite Data Services is distributed in the
+		hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+		the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+		PURPOSE. See the GNU Lesser General Public License for more details.
+		You should have received a copy of the GNU Lesser General Public
+		License along with this library; if not, see
+		<http://www.gnu.org/licenses/>.
+	-->
+<services-config>
+	<services>
+		<service id="granite-service" class="flex.messaging.services.RemotingService"
+			messageTypes="flex.messaging.messages.RemotingMessage">
+			
+			<destination id="spring">
+			<channels>
+				<channel ref="hil-graniteamf"/>
+			</channels>
+			<properties>
+				<factory>tideSpringFactory</factory>
+				<persistence-manager-bean-name>tidePersistenceManager</persistence-manager-bean-name>
+			</properties> 
+             <security>
+					<security-constraint>
+						<auth-method>Custom</auth-method>
+						<roles>
+							<role>ROLE_ADMIN</role>
+							<role>ROLE_USER</role>
+							<role>ROLE_PROVINCE</role>
+							<role>ROLE_DISTRICT</role>
+							<role>ROLE_COMMUNE</role>							
+						</roles>
+					</security-constraint>
+			</security>
+			</destination>					           
+		</service>
+	</services>
+
+    <!--
+     ! Declare springFactory service factory.
+     !-->
+	<factories>
+		<factory id="springFactory" class="org.granite.tide.spring.SpringServiceFactory" />
+		<factory id="tideSpringFactory" class="org.granite.tide.spring.SpringServiceFactory" />
+	</factories>
+
+    <!--
+     ! Declare hil-graniteamf channel.
+     
+     !-->
+	 <channels>
+	
+		<channel-definition id="hil-graniteamf" class="mx.messaging.channels.AMFChannel">
+			<endpoint
+				uri="http://{server.name}:8080/hil-graniteamf/amf"
+				class="flex.messaging.endpoints.AMFEndpoint" />
+		</channel-definition>
+	
+	</channels>
+</services-config>

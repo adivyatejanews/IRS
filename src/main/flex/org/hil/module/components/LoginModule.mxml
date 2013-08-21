@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module:LoginModuleBase xmlns:mx="http://www.adobe.com/2006/mxml" 
+						xmlns:module="org.hil.module.*" 
+						xmlns:view="org.hil.authentication.view.components.*" 
+						layout="horizontal"  
+						percentWidth="100" 
+						percentHeight="100">
+	<view:LoginView id="loginView"/>
+</module:LoginModuleBase>

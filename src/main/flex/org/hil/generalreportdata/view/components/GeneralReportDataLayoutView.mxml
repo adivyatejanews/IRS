@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:GeneralReportDataLayoutViewBase 
+	xmlns:view="org.hil.generalreportdata.view.*"
+	xmlns:subview="org.hil.generalreportdata.view.components.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" 
+	height="100%">
+	
+	<mx:VBox width="100%" height="100%">
+		<mx:TabNavigator 
+			width="100%" 
+			height="100%" 
+			horizontalScrollPolicy="off" 
+			styleName="styleControlTabNavigator" 
+			tabWidth="220" 
+			verticalScrollBarStyleName="fseVerticalScrollBar" >
+			<subview:ChildrenUnder1TabPanelView id="childrenUnder1TabPanelView" />
+			<subview:GeneralReportDataTabPanelView id="generalReportDataTabPanelView"/>
+		</mx:TabNavigator>
+	</mx:VBox>
+	
+</view:GeneralReportDataLayoutViewBase>

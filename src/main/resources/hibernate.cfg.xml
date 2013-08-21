@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="">
+		<!-- enable second-level cache -->
+		<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.jdbc.batch_size">200</property>
+		<mapping class="org.hil.core.model.Children" />
+		<mapping class="org.hil.core.model.Vaccination" />
+		<mapping class="org.hil.core.model.VaccinationDay" />
+		<mapping class="org.hil.core.model.ChildrenVaccinationHistory" />
+		<mapping class="org.hil.core.model.Province" />
+		<mapping class="org.hil.core.model.District" />
+		<mapping class="org.hil.core.model.Commune" />
+		<mapping class="org.hil.core.model.Village" />
+		<mapping class="org.hil.core.model.SystemUser" />
+		<mapping class="org.hil.core.model.SystemAccount" />				
+		<mapping class="org.hil.core.model.SystemAccountRole" />
+		<mapping class="org.hil.core.model.SystemRole" />
+		<mapping class="org.hil.core.model.ChildrenUnder1" />
+		<mapping class="org.hil.core.model.GeneralReportData" />		
+	</session-factory>
+</hibernate-configuration>

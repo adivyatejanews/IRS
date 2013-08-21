@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ChildrenInformationViewBase 
+	xmlns:view="org.hil.childrenvaccination.childreninformation.view.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:component="org.hil.core.components.*"
+	xmlns:head="org.hil.core.layout.*"
+	width="100%"
+	height="100%"
+	xmlns:layout="org.hil.core.layout.*">
+	<mx:Script>
+		<![CDATA[			
+			import mx.controls.DateField;
+			import org.hil.core.model.Village;
+		]]>
+	</mx:Script>
+	
+	<mx:Array id="listCareTaker">
+		<mx:Object label="{resourceManager.getString('ChildrenInformation', 'mother')}" value="0" />
+		<mx:Object label="{resourceManager.getString('ChildrenInformation', 'father')}" value="1" />
+		<mx:Object label="{resourceManager.getString('ChildrenInformation', 'other')}" value="2" />		
+	</mx:Array>
+	<mx:Array id="listGender">
+		<mx:Object label="{resourceManager.getString('ChildrenInformation', 'female')}" value="0" />
+		<mx:Object label="{resourceManager.getString('ChildrenInformation', 'male')}" value="1" />				
+	</mx:Array>
+		
+	<mx:HBox width="100%"
+			 height="100%">
+		<!-- list children -->
+		<mx:VBox width="300"
+				 height="100%"
+				 left="10"
+				 right="20"
+				 horizontalAlign="left"
+				 styleName="glassPods">
+
+			<head:GlassHeaders headerTitle="{resourceManager.getString('ChildrenInformation','list_of_children')}"/>
+			<mx:Canvas width="100%"
+					   height="100%"
+					   horizontalScrollPolicy="off"
+					   verticalScrollBarStyleName="fseVerticalScrollBar">
+				<mx:Form width="100%"
+						 height="100%">
+					<mx:HBox width="100%"
+							 height="30" horizontalAlign="left">
+						<mx:Text text="{resourceManager.getString('ChildrenInformation','province')}" paddingLeft="5" width="75"/>
+						<mx:ComboBox
+							id="comboboxProvinceFilter"
+							width="200"
+							dataProvider="{provinces}"
+							labelField="provinceName"
+							enabled="true" change="{getAllDistrictsFilter();}" />						
+					</mx:HBox>
+					<mx:HBox width="100%"
+							 height="30">		
+						<mx:Text text="{resourceManager.getString('ChildrenInformation','district')}" paddingLeft="5" width="75"/>
+						<mx:ComboBox
+							id="comboboxDistrictFilter"
+							width="200"
+							dataProvider="{districts2}"
+							labelField="districtName"
+							enabled="true" change="{getAllCommunesFilter();}" editable="false" />						
+					</mx:HBox>
+					<mx:HBox width="100%"
+							 height="30">		
+						<mx:Text text="{resourceManager.getString('ChildrenInformation','commune')}" paddingLeft="5" width="75"/>
+						<mx:ComboBox
+							id="comboboxCommuneFilter"
+							width="200"
+							dataProvider="{communes2}"
+							labelField="communeName"
+							enabled="true" change="{getAllVillagesFilter();}" editable="false" />						
+					</mx:HBox>
+					<mx:HBox width="100%"
+							 height="30">		
+						<mx:Text text="{resourceManager.getString('ChildrenInformation','village')}" paddingLeft="5" width="75"/>
+						<mx:ComboBox
+							id="comboboxVillageFilter"
+							width="200"
+							dataProvider="{villages2}"
+							labelField="villageName"
+							enabled="true" editable="false" change="{changeVillageFilter();}" />						
+					</mx:HBox>
+					<mx:HBox width="100%"
+							 height="30" horizontalAlign="left">
+						<mx:Text text="{resourceManager.getString('ChildrenInformation','child_name')}" paddingLeft="5" minWidth="75"/>
+						<component:TextInputUTF8
+							id="textChildNameFilter"														
+							editable="true"
+							width="150" />
+					</mx:HBox>
+					<mx:HBox width="100%"
+							 height="30" horizontalAlign="left">
+						<mx:Text text="{resourceManager.getString('ChildrenInformation','mother_name')}" paddingLeft="5" minWidth="75"/>
+						<component:TextInputUTF8
+							id="textChildMotherNameFilter"														
+							editable="true"
+							width="150" />
+					</mx:HBox>
+					<mx:Text text="{resourceManager.getString('ChildrenInformation','date_of_birth_between')}" width="100%" paddingLeft="5"/>
+					<mx:HBox width="100%"
+							 height="30">
+						<mx:Text text="" paddingLeft="0"/>
+						<component:DateFieldAutoCorrect id="textDateOfBirthFromFilter"
+														formatString="{resourceManager.getString('ChildrenInformation','date_format')}"
+														yearNavigationEnabled="true"
+														editable="true"
+														width="110"
+														required="true" />
+						<mx:Text text="-" />
+						<component:DateFieldAutoCorrect id="textDateOfBirthToFilter"
+														formatString="{resourceManager.getString('ChildrenInformation','date_format')}"
+														yearNavigationEnabled="true"
+														editable="true"
+														width="110"
+														selectedDate="{new Date()}" required="true"/>						
+					</mx:HBox>
+					<mx:HBox width="100%"
+							 height="30" horizontalAlign="left">
+						<mx:Text text="{resourceManager.getString('ChildrenInformation','child_code')}" width="30" paddingLeft="5"/>
+						<component:TextInputUTF8
+							id="textChildCodeFilter"														
+							editable="true"
+							width="150" maxChars="16" minTextValidatorLength="16" />
+						<mx:Button id="buttonSearch"
+								   label="{resourceManager.getString('ChildrenInformation','filter')}"
+								   click="refreshChildrenList()"
+								   enabled="true" width="80"/>
+					</mx:HBox>
+					
+					<mx:Spacer height="4"/>
+					<mx:HBox>
+						<mx:Label text="{resourceManager.getString('ChildrenInformation','total')}{listChildren.length}" color="0xB40404" paddingLeft="5"/>
+						<mx:Text id="linkExportExcel" text="({resourceManager.getString('ChildrenInformation','export_excel')})" click="printListExcel();" color="blue" textDecoration="underline" visible="false" enabled="false"/>
+						<mx:Text id="linkImportExcel" text="({resourceManager.getString('ChildrenInformation','import_excel')})" click="importExcel();" color="blue" textDecoration="underline" visible="false" enabled="false"/>
+					</mx:HBox>					
+					<component:RowColorDataGrid id="listChildrenGrid"
+												dataProvider="{listChildren}"
+												doubleClickEnabled="true"
+												dropShadowEnabled="true"
+												dropShadowColor="#AAAAAA"
+												doubleClick="getChild();"												
+												width="100%" height="95%"
+												rowColorFunction="changeChildRowColor" >
+						<component:columns>
+							<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','name')}"
+													  dataField="fullName"
+													  width="160" labelFunction="fullNameFunction" />
+							<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','child_DOB')}"
+													  dataField="dateOfBirth" sortDescending="false" sortable="true"
+													  width="113" labelFunction="formatDate" sortCompareFunction="dateCompareFunction"/>						
+						</component:columns>
+					</component:RowColorDataGrid>					
+				</mx:Form>
+				<mx:Spacer height="5"/>				
+			</mx:Canvas>
+			<mx:HRule height="2" width="100%" />
+			<mx:HBox width="100%"
+					 horizontalAlign="center"
+					 height="30">						
+				<mx:Button id="newRegistryButton"
+						   label="{resourceManager.getString('ChildrenInformation','new_registry')}"
+						   click="newRegistry();"
+						   enabled="true" width="100%" color="red" height="30" />						
+			</mx:HBox>
+			<mx:Spacer height="5"/>
+		</mx:VBox>		
+		
+		<mx:VBox width="100%"
+				 height="100%" enabled="{enableDetailInformation}">
+			<mx:VBox width="100%"
+					 height="380"
+					 left="10"
+					 right="20"
+					 horizontalAlign="center"
+					 styleName="glassPods">
+				<head:GlassHeaders headerTitle="{resourceManager.getString('ChildrenInformation','personal_information')}"/>
+				<mx:Canvas width="100%"
+						   height="100%" enabled="{enableChildDetailInformation}"
+						   horizontalScrollPolicy="off" disabledOverlayAlpha="0.2"
+						   verticalScrollBarStyleName="fseVerticalScrollBar">
+					
+					<mx:Form width="100%" height="100%">
+						<mx:HBox>
+							<mx:Label text="{resourceManager.getString('ChildrenInformation','child_information')}" color="blue" paddingLeft="10"/>	
+							<mx:Text text="({resourceManager.getString('ChildrenInformation','finished')})" id="textVaccinationFinishedStatus" visible="false" color="0xB40404"/>
+						</mx:HBox>						
+						<mx:HBox width="100%" height="30" verticalAlign="middle">
+							<mx:Label text="{resourceManager.getString('ChildrenInformation','name')}" paddingLeft="10"/>
+							<component:TextInputUTF8 id="textChildName"														
+													 editable="true"
+													 width="200" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','child_DOB')}" paddingLeft="5" paddingRight="0"/>							
+							<mx:Image source="@Embed('assets/required_icon.png')" width="8" height="8"/>
+							<component:DateFieldAutoCorrect id="textDateOfBirth"
+															formatString="{resourceManager.getString('ChildrenInformation','date_format')}"
+															yearNavigationEnabled="true"
+															editable="true"
+															width="110"
+															required="true"/>
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','child_gender')}" paddingLeft="5" />							
+							<mx:Image source="@Embed('assets/required_icon.png')" width="8" height="8"/>
+							<mx:ComboBox id="comboboxGender"
+										 width="90"
+										 dataProvider="{listGender}"
+										 labelField="label"
+										 enabled="true" selectedIndex="-1"/>
+							<mx:Label text="{resourceManager.getString('ChildrenInformation','child_code')}" paddingLeft="5"/>
+							<component:TextInputUTF8 id="childCodeText"														
+													 width="150"
+													 editable="false" enabled="true" color="0xB40404"/>			
+						</mx:HBox>
+						<mx:HBox width="100%" height="30" verticalAlign="middle" paddingLeft="10">
+							<mx:Image source="@Embed('assets/required_icon.png')" width="8" height="8"/>
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','province')}" paddingLeft="0"/>
+							<mx:ComboBox
+								id="comboboxProvince"
+								width="120"
+								dataProvider="{provinces}"
+								labelField="provinceName"
+								enabled="true" change="{getAllDistricts();}" />										
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','district')}" paddingLeft="3"/>
+							<mx:ComboBox
+								id="comboboxDistrict"
+								width="120"
+								dataProvider="{districts7}"
+								labelField="districtName"
+								enabled="true" change="{getAllCommunes();}" />							
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','commune')}" paddingLeft="3"/>
+							<mx:ComboBox
+								id="comboboxCommune"
+								width="170"
+								dataProvider="{communes7}"
+								labelField="communeName"
+								enabled="true" change="{getAllVillages();}" />							
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','village')}" paddingLeft="3"/>
+							<mx:ComboBox
+								id="comboboxVillage"
+								width="200"
+								dataProvider="{villages7}"
+								labelField="villageName"
+								enabled="true" />							
+						</mx:HBox>
+						<mx:HBox width="100%" height="30">
+							<mx:Label text="{resourceManager.getString('ChildrenInformation','address')}" paddingLeft="10"/>
+							<component:TextInputUTF8 id="addressText"														
+													 editable="true"
+													 width="400" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','monitoring_status')}" paddingLeft="3"/>
+							<mx:CheckBox id="textChildLocked" change="{disableMonitoring();}"												
+										 label="{resourceManager.getString('ChildrenInformation','locked')}" selected="false" paddingLeft="5" />
+						</mx:HBox>
+						<mx:Label text="{resourceManager.getString('ChildrenInformation','mother_information')}" width="100%" color="blue" paddingLeft="10"/>
+						<mx:HBox width="100%" height="30" horizontalAlign="left" verticalAlign="middle">
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','name')}" paddingLeft="10" />
+							<mx:Image source="@Embed('assets/required_icon.png')" width="8" height="8"/>
+							<component:TextInputUTF8 id="textMotherName" editable="true" width="200" />							
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','year_of_birth')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="motherYearOfBirth"
+													 width="60"
+													 enabled="true" maxChars="4"/>
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','personal_id')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="textMotherID"														
+													 editable="true"
+													 width="100" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','mobile')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="textMotherMobile"														
+													 editable="true"
+													 width="100" />							
+						</mx:HBox>
+						<mx:Label text="{resourceManager.getString('ChildrenInformation','father_information')}" width="100%" color="blue" paddingLeft="10"/>
+						<mx:HBox width="100%" height="30" horizontalAlign="left">
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','name')}" paddingLeft="10" />
+							<component:TextInputUTF8 id="textFatherName"														
+													 editable="true"
+													 width="200" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','year_of_birth')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="fatherYearOfBirth"
+													 width="60"
+													 enabled="true" maxChars="4" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','personal_id')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="textFatherID"														
+													 editable="true"
+													 width="100" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','mobile')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="textFatherMobile"														
+													 editable="true"
+													 width="100" />						
+						</mx:HBox>						
+						<mx:HBox width="100%"
+								 height="30">
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','caretaker')}" paddingLeft="10" />							
+							<mx:ComboBox id="listCareTakerCBox"
+										 width="100"
+										 dataProvider="{listCareTaker}"
+								   		 labelField="label"
+										 enabled="true" change="{selectCaretaker();}" selectedIndex="0"/>					
+						</mx:HBox>
+						<mx:Label id="otherCaretakerLabel" height="0" text="{resourceManager.getString('ChildrenInformation','other_caretaker_information')}" width="100%" color="blue" visible="{otherCaretaker}" paddingLeft="10"/>
+						<mx:HBox width="100%"
+								 horizontalAlign="left" id="otherCaretakerForm" height="0" visible="{otherCaretaker}">
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','name')}" paddingLeft="10" />
+							<component:TextInputUTF8 id="textCaretakerName"														
+													 editable="true"
+													 width="200" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','year_of_birth')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="caretakerYearOfBirth"
+													 width="60"
+													 enabled="true" maxChars="4" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','personal_id')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="textCaretakerID"														
+													 editable="true"
+													 width="100" />
+							<mx:Text text="{resourceManager.getString('ChildrenInformation','mobile')}" paddingLeft="5" />							
+							<component:TextInputUTF8 id="textCaretakerMobile"														
+													 editable="true"
+													 width="100" />							
+						</mx:HBox>
+						
+					</mx:Form>					
+				</mx:Canvas>
+				<mx:Spacer height="2"/>
+				<mx:HBox width="100%"
+						 height="30">
+					<mx:Text text="" paddingLeft="3" />							
+					<mx:Button id="buttonSaveChild"
+							   label="{resourceManager.getString('ChildrenInformation','save')}"
+							   click="validateChild();" keyDown="validateChildKeyboardEventHandler(event);"								   
+							   enabled="true" color="blue" width="80"/>
+					<mx:Button id="buttonEditChild"
+							   label="{resourceManager.getString('ChildrenInformation','edit')}"
+							   click="editChild();" keyDown="editChildKeyboardEventHandler(event);"								   
+							   enabled="true" color="blue" width="80"/>
+					<mx:Button id="buttonDeleteChild"
+							   label="{resourceManager.getString('ChildrenInformation','delete')}"
+							   click="alertDeleteChild();" keyDown="deleteChildKeyboardEventHandler(event);"								   
+							   enabled="true" color="blue" width="80"/>
+				</mx:HBox>
+			</mx:VBox>
+			<mx:VBox width="100%"
+					 height="100%"
+					 left="10"
+					 right="20"
+					 horizontalAlign="center"
+					 styleName="glassPods">
+				<head:GlassHeaders headerTitle="{resourceManager.getString('ChildrenInformation','vaccination_history')}"/>
+				<mx:Canvas width="96%"
+						   height="100%"
+						   horizontalScrollPolicy="off"
+						   verticalScrollBarStyleName="fseVerticalScrollBar">
+					<mx:Form width="100%"
+							 height="100%">						
+						<component:RowColorDataGrid id="vaccinationHistoryGrid"
+													doubleClickEnabled="true"
+													dropShadowEnabled="true"
+													dropShadowColor="#AAAAAA"
+													dataProvider="{listVaccinationHistory}"
+													doubleClick="openVaccinationHistoryPopup();"
+													width="100%"
+													height="100%" editable="false"
+													rowColorFunction="changeRowColor" >
+							<component:columns>
+								<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','vaccination_name')}"
+														  dataField="vaccination.name"
+														  width="200"/>
+								<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','vaccination_date')}"
+														  dataField="dateOfImmunization"
+														  width="120" labelFunction="formatDate" />
+								<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','vaccinated')}"
+														  dataField="vaccinated"
+														  width="120" labelFunction="vaccinatedConvert"/>
+								<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','reason_if_missed')}"
+														  dataField="reasonIfMissed"
+														  width="120"/>
+								<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','vaccination_location')}"
+														  dataField="vaccinatedLocation.communeName"
+														  width="120"/>
+								<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','other_location')}"
+														  dataField="otherVaccinatedLocation"
+														  width="120" labelFunction="nameOtherVaccinatedLocation"/>
+								<component:DataGridColumn headerText="{resourceManager.getString('ChildrenInformation','overdue')}"
+														  dataField="overdue"
+														  width="120"  labelFunction="overdueConvert" />							
+							</component:columns>
+						</component:RowColorDataGrid>
+						<mx:Spacer height="6"/>
+					</mx:Form>	
+					
+				</mx:Canvas>
+			</mx:VBox>
+			
+		</mx:VBox>
+	</mx:HBox>	
+</view:ChildrenInformationViewBase>

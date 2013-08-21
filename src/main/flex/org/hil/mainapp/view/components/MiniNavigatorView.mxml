@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:MiniNavigatorViewBase xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:view="org.hil.mainapp.view.*" width="100%" height="100%">
+	
+	<mx:List id="myListNav" height="100%" width="40" styleName="fseTree" selectedIndex="{currentView}"
+		dataProvider="{views}" change="changeView()" />	
+	
+	<mx:Metadata>
+        [Event("change")]
+    </mx:Metadata>
+
+</view:MiniNavigatorViewBase>
+

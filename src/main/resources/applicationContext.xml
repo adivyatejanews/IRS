@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:parancoe="http://www.parancoe.org/schema/parancoe" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/tx
+					 http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.parancoe.org/schema/parancoe
+           http://www.parancoe.org/schema/parancoe.xsd"
+	default-lazy-init="true">
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<value>
+				org.hibernate.dialect.MySQLInnoDBDialect
+				hibernate.hbm2ddl.auto=create-insert-update-validate
+				show_sql=true
+			</value>
+		</property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+
+	</bean>
+
+	<!-- enable annotation support -->
+	<context:annotation-config />
+	<!-- enable auto bean creation -->
+	<context:component-scan base-package="org.hil" />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="genericDaoExt"
+		class="org.hil.core.dao.hibernate.GenericDaoHibernateExt"
+		abstract="true">
+	</bean>
+
+	<!-- Automatic DAO definition from persistent classes, notes: basePackage=com.myapp.dao 
+		not works -->
+	<parancoe:define-daos basePackage="org.hil"
+		genericDao="genericDaoExt" />
+
+	<!-- =================================================================== -->
+	<!-- AOP: Configuration and Aspects -->
+	<!-- =================================================================== -->
+
+	<!-- Enable @Transactional support -->
+	<tx:annotation-driven />
+
+	<!-- Enable @AspectJ support -->
+	<aop:aspectj-autoproxy />
+
+	<!-- Enable @Configured support <aop:spring-configured/> -->
+
+	<!-- tide configuration -->
+	<aop:config>
+		<aop:pointcut id="tidePersistenceManagerMethods"
+			expression="execution(* org.granite.tide.TidePersistenceManager.*(..))" />
+		<aop:advisor advice-ref="tidePersistenceManagerMethodsTxAdvice"
+			pointcut-ref="tidePersistenceManagerMethods" />
+		<aop:advisor id="managerTx" advice-ref="txAdvice"
+			pointcut="execution(* *..service.*Manager.*(..))" order="2" />
+	</aop:config>
+	<tx:advice id="tidePersistenceManagerMethodsTxAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<tx:advice id="txAdvice">
+		<tx:attributes>			
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="tideTransactionManager" class="org.granite.tide.spring.SpringTransactionManager"
+		scope="request">
+		<constructor-arg ref="transactionManager" />
+	</bean>
+
+	<bean id="tidePersistenceManager" class="org.granite.tide.hibernate.HibernatePersistenceManager"
+		scope="request">
+		<constructor-arg ref="sessionFactory" />
+		<constructor-arg ref="tideTransactionManager" />
+	</bean>	
+
+	<bean id="passwordEncoder"
+		class="org.springframework.security.providers.encoding.PlaintextPasswordEncoder" />
+
+</beans>

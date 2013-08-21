@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ChildrenVaccinationReportViewBase 
+	xmlns:view="org.hil.childrenvaccination.childrenvaccinationreport.view.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:component="org.hil.core.components.*"
+	xmlns:head="org.hil.core.layout.*"
+	width="100%"
+	height="100%"
+	xmlns:layout="org.hil.core.layout.*">
+	<mx:Script>
+		<![CDATA[			
+			import mx.controls.DateField;
+		]]>
+	</mx:Script>
+	
+	<mx:Array id="arrayTypeOfReport">
+		<mx:Object label="{resourceManager.getString('ChildrenVaccinationReport', 'type_1')}" value="0" />			
+	</mx:Array>
+	
+	<mx:VBox width="100%" id="testshow"
+			 height="100%">
+		<head:GlassHeaders headerTitle="{resourceManager.getString('ChildrenVaccinationReport','children_vaccination_report')}" color="0x153E7E"/>
+		<mx:Canvas
+			width="100%" 
+			height="100%"
+			horizontalScrollPolicy="off"
+			verticalScrollBarStyleName="fseVerticalScrollBar">
+			<mx:Form width="100%" height="100%">				
+				<mx:HBox width="100%" height="30">
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinationReport','from')}" paddingLeft="10"/>
+					<component:DateFieldAutoCorrect 
+						id="timeFrom"
+						formatString="{resourceManager.getString('ChildrenVaccinationReport','month_year_format')}"
+						yearNavigationEnabled="true"
+						editable="true"
+						width="90" selectedDate="{new Date()}"/>								
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinationReport','to')}" />
+					<component:DateFieldAutoCorrect 
+						id="timeTo"
+						formatString="{resourceManager.getString('ChildrenVaccinationReport','month_year_format')}"
+						yearNavigationEnabled="true"
+						editable="true"
+						width="90" selectedDate="{new Date()}" />								
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinationReport','province')}" paddingLeft="5"/>
+					<mx:ComboBox
+						id="comboboxProvince"
+						width="120"
+						dataProvider="{provinces}"
+						labelField="provinceName"
+						change="{getAllDistricts();}" enabled="false" editable="false" color="0x153E7E" />						
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinationReport','district')}" />
+					<mx:ComboBox
+						id="comboboxDistrict"
+						width="120"
+						dataProvider="{districts8}"
+						labelField="districtName"
+						change="{getAllCommunes();}" enabled="false" editable="false" color="0x153E7E" />					
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinationReport','commune')}" />
+					<mx:ComboBox
+						id="comboboxCommune"
+						width="200"
+						dataProvider="{communes8}"
+						labelField="communeName"
+						enabled="true"/>																
+				</mx:HBox>
+				<mx:HBox>
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinationReport','type_of_report')}" paddingLeft="10"/>
+					<mx:ComboBox id="typeOfReportId"
+								 width="350"
+								 dataProvider="{arrayTypeOfReport}"
+								 labelField="label"
+								 enabled="true" selectedIndex="0"
+								 />				
+					<mx:Button id="buttonLoad"
+							   label="{resourceManager.getString('ChildrenVaccinationReport','preview_list')}"
+							   click="getChildrenVaccinationReportInSelectedLocation();"
+							   enabled="true"/>
+				</mx:HBox>
+				<mx:Spacer height="6"/>				
+				<component:RowColorDataGrid id="dataGridReport"
+											doubleClickEnabled="false"
+											dropShadowEnabled="true"
+											dropShadowColor="#AAAAAA"
+											dataProvider="{statistics}"																										
+											width="100%" rowColorFunction="changeRowColor"
+											height="100%" headerHeight="60">
+					<component:columns>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','region')}"
+												  dataField="regionName" headerWordWrap="true" labelFunction="convertRegionName"
+												  width="60"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','children_under_1')}"
+												  dataField="childrenUnder1" labelFunction="convertNumberZero"
+												  width="20" headerWordWrap="true" textAlign="right"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','BCG')}"
+												  dataField="tBCG" textAlign="right"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','VGBL24')}"
+												  dataField="tVGBL24" headerWordWrap="true" textAlign="right"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','VGBG24')}"
+												  dataField="tVGBG24" headerWordWrap="true" textAlign="right"
+												  width="17"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','DPT_VGB_Hib1')}"
+												  dataField="tDPT_VGB_Hib1" headerWordWrap="true" textAlign="right"
+												  width="17"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','DPT_VGB_Hib2')}"
+												  dataField="tDPT_VGB_Hib2" headerWordWrap="true" textAlign="right"
+												  width="17"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','DPT_VGB_Hib3')}"
+												  dataField="tDPT_VGB_Hib3" headerWordWrap="true" textAlign="right"
+												  width="17"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','OPV1')}"
+												  dataField="tOPV1" textAlign="right"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','OPV2')}"
+												  dataField="tOPV2" textAlign="right"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','OPV3')}"
+												  dataField="tOPV3" textAlign="right"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','measles1')}"
+												  dataField="tMeasles1" headerWordWrap="true" textAlign="right"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','finished')}"
+												  dataField="amountOfFinish" headerWordWrap="true" textAlign="right"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','tetanus_protection')}"
+												  dataField="protectedTetanusCases" headerWordWrap="true" labelFunction="convertNumberZero"
+												  width="20" textAlign="right"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','normal_reacion_after_vaccination')}"
+												  dataField="reactionNormalCases" headerWordWrap="true" labelFunction="convertNumberZero"
+												  width="20" textAlign="right"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinationReport','serious_reacion_after_vaccination')}"
+												  dataField="reactionSeriousCases" headerWordWrap="true" labelFunction="convertNumberZero"
+												  width="20" textAlign="right"/>
+					</component:columns>
+				</component:RowColorDataGrid>
+				<mx:Spacer height="6"/>
+				<mx:HBox>
+					<mx:Button id="buttonPrintPDF"
+							   label="{resourceManager.getString('ChildrenVaccinationReport','export_pdf')}"
+							   click="printListVaccinationReport('pdf');"
+							   enabled="false"/>
+					<mx:Button id="buttonPrintExcel"
+							   label="{resourceManager.getString('ChildrenVaccinationReport','export_excel')}"
+							   click="printListVaccinationReport('excel');"
+							   enabled="false"/>
+				</mx:HBox>				
+			</mx:Form>
+		</mx:Canvas>		
+	</mx:VBox>
+</view:ChildrenVaccinationReportViewBase>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ListOfVaccinationsViewBase
+	xmlns:view="org.hil.listmanagement.vaccination.view.*"
+	xmlns:component="org.hil.core.components.*"	
+	xmlns:layout="org.hil.core.layout.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" 
+	height="100%"
+	label="{resourceManager.getString('ListOfVaccinations','list_of_vaccinations')}">
+	
+	<mx:Script>
+		<![CDATA[			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.controls.DateField;
+			import mx.events.DataGridEvent;			
+			import org.hil.core.model.Vaccination;			
+		]]>
+	</mx:Script>
+	
+	<mx:Array id="listAgeUnit">
+		<mx:Object label="{resourceManager.getString('ListOfVaccinations', 'day')}" value="0" />
+		<mx:Object label="{resourceManager.getString('ListOfVaccinations', 'month')}" value="1" />				
+	</mx:Array>
+	
+	<mx:HBox 
+		width="100%" 
+		height="50%" 
+		styleName="glassPods" 
+		paddingRight="15" 
+		paddingLeft="15"  
+		paddingBottom="15" >
+		<mx:VBox
+			width="100%" 
+			height="100%">
+			<layout:GlassHeaders headerTitle="{resourceManager.getString('ListOfVaccinations','list_of_vaccinations')}"/>					
+			<component:RowColorDataGrid 			 
+				id="vaccinationGrid"
+				rowCount="10"
+				width="100%"  
+				height="100%"
+				dataProvider="{vaccinations}"				
+				doubleClickEnabled="true"
+				doubleClick="getVaccination();">
+			<component:columns>				
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfVaccinations','name')}" 
+					dataField="name" 
+					width="100" />
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfVaccinations','age')}" 
+					dataField="age"
+					sortable="true"
+					sortDescending="false" width="50" labelFunction="ageConvert" />
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfVaccinations','gap')}" 
+					dataField="gap" 
+					width="150" labelFunction="gapConvert" />
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfVaccinations','limit_days')}" 
+					dataField="limitDays" 
+					width="150" labelFunction="nanConvert" />
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfVaccinations','notes')}" 
+					dataField="notes" width="150" />				
+				</component:columns>
+			</component:RowColorDataGrid>
+		</mx:VBox>		
+	</mx:HBox>				
+		<mx:HBox
+			 width="100%" 
+			 height="50%" 
+			 styleName="glassPods"  
+			 paddingRight="15" 
+			 paddingLeft="15"  >				
+			<mx:VBox 
+				width="100%" 
+				height="100%">
+				<layout:GlassHeaders headerTitle="{resourceManager.getString('ListOfVaccinations','input_form')}"/>				
+				<mx:Form 
+					id="vaccinationForm" 
+					height="100%"
+					width="100%">
+					<mx:HBox verticalAlign="middle">
+						<mx:Text text="{resourceManager.getString('ListOfVaccinations','name')}" paddingLeft="10" width="140"/>
+						<mx:Image source="@Embed('assets/required_icon.png')" width="8" height="8"/>
+						<component:TextInputUTF8 
+							id="textVaccinationName"													 
+							enableValidator="true"
+							required="true"
+							minTextValidatorLength="2"
+							change="{
+								if(textVaccinationName.text.length!=0) {
+									buttonSave.enabled=true;
+									setInputDataStatus(true);
+									buttonReset.enabled = true;
+								} else {
+									buttonSave.enabled=false;
+									numericVaccinationAge.enabled = false;
+									buttonReset.enabled = false;
+								}			
+							}"							
+							width="400" />
+					</mx:HBox>
+					<mx:Spacer height="3" />
+					<mx:HBox verticalAlign="middle">
+						<mx:Text text="{resourceManager.getString('ListOfVaccinations','age')}" paddingLeft="10" width="140"/>
+						<mx:Image source="@Embed('assets/required_icon.png')" width="8" height="8"/>
+						<mx:NumericStepper 
+							id="numericVaccinationAge" 
+							value="0" 							
+							change="{
+								
+							}"								 
+							width="60" maximum="1000" />													
+						<mx:ComboBox 
+							id="comboboxVaccinationAgeUnit"
+							width="100"
+							dataProvider="{listAgeUnit}"
+							labelField="label"
+							enabled="true" selectedIndex="0"/>
+					</mx:HBox>
+					<mx:Spacer height="3" />
+					<mx:HBox>
+						<mx:Text text="{resourceManager.getString('ListOfVaccinations','gap')}" paddingLeft="10"/>
+						<mx:ComboBox
+							id="comboboxVaccinations"
+							width="200"
+							dataProvider="{vaccinations}"
+							labelField="name"
+							enabled="true" selectedIndex="-1" change="{selectDependentVaccination();}"/>
+						<component:TextInputUTF8
+							id="textGap" 
+							text="" 							
+							change="{
+							
+							}"								 
+							width="60" />
+						<mx:Text text="{resourceManager.getString('ListOfVaccinations','days')}" />
+					</mx:HBox>
+					<mx:Spacer height="3" />
+					<mx:HBox>
+						<mx:Text text="{resourceManager.getString('ListOfVaccinations','limit_days')}" paddingLeft="10"/>
+						<component:TextInputUTF8
+							id="textLimitDays" 
+							text="" 							
+							change="{
+							
+							}"								 
+							width="60" />
+						<mx:Text text="{resourceManager.getString('ListOfVaccinations','days')}" />
+					</mx:HBox>
+					<mx:Spacer height="3" />
+					<mx:HBox>					
+						<mx:Text text="{resourceManager.getString('ListOfVaccinations','notes')}" paddingLeft="10" width="155"/>
+						<component:TextAreaUTF8 
+							id="textNotes" 
+							text="" 							
+							width="400" />
+					</mx:HBox>					
+					<mx:HBox height="10" width="95%" />
+					<mx:ControlBar 
+						width="100%" 
+						height="100%">
+						<mx:HBox 
+							width="100%" 
+							height="100%">
+							<mx:Button 
+								id="buttonNew" 
+								label="{resourceManager.getString('ListOfVaccinations','new')}" 
+								click="newVaccination()" 
+								enabled="true"
+								keyDown="newVaccinationKeyboardEventHandler(event)"/>
+							<mx:Button 
+								id="buttonSave"
+								label="{resourceManager.getString('ListOfVaccinations','save')}" 
+								click="saveVaccination()" 
+								keyDown="saveVaccinationKeyboardEventHandler(event)"/>														
+							<mx:Button 
+								id="buttonDelete" 
+								label="{resourceManager.getString('ListOfVaccinations','delete')}" 
+								click="alertDeleteVaccination()" 
+								keyDown="deleteVaccinationKeyboardEventHandler(event)"/>
+							<mx:Button 
+								id="buttonReset" 
+								label="{resourceManager.getString('ListOfVaccinations','reset')}" 
+								click="resetVaccination()" 
+								keyDown="resetVaccinationKeyboardEventHandler(event)" />							
+						</mx:HBox>
+					</mx:ControlBar>
+			</mx:Form>
+		</mx:VBox>		
+	</mx:HBox>
+</view:ListOfVaccinationsViewBase>

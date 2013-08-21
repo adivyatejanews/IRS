@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module:ListOfVaccinationsModuleBase 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:module="org.hil.module.*" 
+	xmlns:view="org.hil.listmanagement.vaccination.view.components.*" 
+	layout="vertical" 
+	percentWidth="100" 
+	percentHeight="100">
+	
+	<view:ListOfVaccinationsView id="listOfVaccinationsView"/> 
+	
+</module:ListOfVaccinationsModuleBase>

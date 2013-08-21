@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VaccinationHistoryPopupViewBase 
+	xmlns="org.hil.childrenvaccination.listofchildrendue.view.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	showCloseButton="true" 
+	close="{
+		PopUpManager.removePopUp(this);
+	}" 
+	roundedBottomCorners="true"
+	title="{resourceManager.getString('ListOfChildrenDue','vaccination_history')}" 
+	xmlns:component="org.hil.core.components.*"
+	width="100%" height="100%">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.DateField;
+			import mx.managers.PopUpManager;
+			import org.hil.core.model.Commune;			
+		]]>
+	</mx:Script>
+	
+	<mx:Array id="vaccinatedStatusArray">
+		<mx:Object label="{resourceManager.getString('ListOfChildrenDue', 'not_yet')}" value="0" />
+		<mx:Object label="{resourceManager.getString('ListOfChildrenDue', 'already')}" value="1" />
+		<mx:Object label="{resourceManager.getString('ListOfChildrenDue', 'missed')}" value="2" />
+		<mx:Object label="{resourceManager.getString('ListOfChildrenDue', 'overcall')}" value="3" />
+	</mx:Array>
+	
+	
+
+	<mx:VBox 
+		width="100%"
+		height="100%">		
+		<mx:Form paddingRight="10">			
+			<mx:FormItem 
+				label="{resourceManager.getString('ListOfChildrenDue','vaccination_name')}" 
+				labelWidth="102" labelStyleName="formItemLabelLeft">
+				<mx:ComboBox id="comboboxVaccinationHistory" dataProvider="{listVaccinationDueHistory}" labelFunction="vaccineNameConvert"
+							 labelField="vaccination" color="0xB40404" width="150" change="changeVaccinationHistory();"/>									
+			</mx:FormItem>
+			<mx:FormItem 
+				label="{resourceManager.getString('ListOfChildrenDue','vaccinated')}" 
+				labelWidth="102" labelStyleName="formItemLabelLeft">
+				<mx:ComboBox id="vaccinatedStatusChooser"
+							 width="120"
+							 dataProvider="{vaccinatedStatusArray}"
+							 labelField="label"
+							 enabled="true" selectedIndex="0"
+							 change="changeVaccinationStatus();" />
+			</mx:FormItem>
+			<mx:FormItem 
+				label="{resourceManager.getString('ListOfChildrenDue','vaccination_date')}"
+				labelWidth="102" labelStyleName="formItemLabelLeft">
+				<component:DateFieldAutoCorrect
+					width="120" yearNavigationEnabled="true"
+					id="dateOfImmunization" selectedDate="{new Date()}"
+					formatString="{resourceManager.getString('ListOfChildrenDue','date_format')}" editable="true" enabled="true"/>
+			</mx:FormItem>
+			<mx:FormItem 
+				label="{resourceManager.getString('ListOfChildrenDue','reason_if_missed')}" 
+				labelWidth="102" labelStyleName="formItemLabelLeft">
+				<component:TextAreaUTF8
+					width="200" height="40"
+					id="textReasonIfMissed"
+					text="" editable="true" enabled="true"/>					
+			</mx:FormItem>
+			<mx:Spacer height="3"/>
+			<mx:HBox>
+				<mx:Label text="{resourceManager.getString('ListOfChildrenDue','vaccination_location')}" paddingLeft="10" width="107"/>
+				<mx:VBox>
+					<mx:ComboBox
+						id="comboboxProvince"
+						width="120"
+						dataProvider="{provinces}"
+						labelField="provinceName"
+						enabled="true" change="{getAllDistricts();}" />													
+					<mx:ComboBox
+						id="comboboxDistrict"
+						width="120"
+						dataProvider="{districts9}"
+						labelField="districtName"
+						enabled="true" change="{getAllCommunes();}" />
+					<mx:ComboBox
+						id="comboboxCommune"
+						width="200"
+						dataProvider="{communes9}"
+						labelField="communeName"
+						enabled="true" />
+				</mx:VBox>				
+			</mx:HBox>			
+			<mx:Spacer height="2"/>
+			<mx:FormItem 
+				label="{resourceManager.getString('ListOfChildrenDue','other_location')}" 
+				labelWidth="102" labelStyleName="formItemLabelLeft">
+				<mx:ComboBox
+					id="comboboxOtherVaccinatedLocation"
+					width="250" paddingLeft="0"
+					dataProvider="{arrayOtherVaccinatedLocation}"
+					labelField="name"
+					enabled="true"
+					change="{
+					onOtherLocation();						
+					}" />
+			</mx:FormItem>
+			<mx:FormItem 
+				label="{resourceManager.getString('ListOfChildrenDue','overdue')}" 
+				labelWidth="105" labelStyleName="formItemLabelLeft">
+				<mx:CheckBox id="vaccinationOverdue"														
+							 label="" paddingLeft="5"/>
+			</mx:FormItem>
+		</mx:Form>		
+		<mx:ControlBar width="100%">
+			<mx:Button 
+				id="saveButton"
+				enabled="true"   
+				label="{resourceManager.getString('ListOfChildrenDue','save')}"
+				click="saveVaccinationHistory()" 
+				keyDown="saveVaccinationHistoryEnterEvent(event);"/>
+			<mx:Button 
+				label="{resourceManager.getString('ListOfChildrenDue','close')}"
+				click="{
+					closeVaccinationHistoryPopup();
+				}"
+				keyDown="closeVaccinationHistoryPopupEnterEvent(event);"/>			
+		</mx:ControlBar>
+	</mx:VBox>
+</VaccinationHistoryPopupViewBase>

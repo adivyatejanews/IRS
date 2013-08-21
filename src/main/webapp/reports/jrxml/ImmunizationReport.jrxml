@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImmunizationReport" pageWidth="841" pageHeight="595" columnWidth="813" leftMargin="14" rightMargin="14" topMargin="7" bottomMargin="5">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="154"/>
+	<property name="ireport.y" value="0"/>
+	<import value="java.lang.*"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="content" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial.ttf" pdfEncoding="Identity-H"/>
+	<style name="content_bold" style="content" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf"/>
+	<style name="content_italic" style="content" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Italic.ttf"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/htran/HProjects/009 - HIL/05- Program/trunk/server/hil/src/main/webapp/reports/jrxml/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="statistics" class="java.util.List"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="regionName" class="java.lang.String">
+		<fieldDescription><![CDATA[regionName]]></fieldDescription>
+	</field>
+	<field name="provinceName" class="java.lang.String">
+		<fieldDescription><![CDATA[provinceName]]></fieldDescription>
+	</field>
+	<field name="districtName" class="java.lang.String">
+		<fieldDescription><![CDATA[districtName]]></fieldDescription>
+	</field>
+	<field name="communeName" class="java.lang.String">
+		<fieldDescription><![CDATA[communeName]]></fieldDescription>
+	</field>
+	<field name="timeData" class="java.lang.String">
+		<fieldDescription><![CDATA[timeData]]></fieldDescription>
+	</field>
+	<field name="statistics" class="java.util.List">
+		<fieldDescription><![CDATA[statistics]]></fieldDescription>
+	</field>
+	<field name="sumChildrenUnder1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[sumChildrenUnder1]]></fieldDescription>
+	</field>
+	<field name="sumBCG" class="java.lang.String">
+		<fieldDescription><![CDATA[sumBCG]]></fieldDescription>
+	</field>
+	<field name="sumVGBL24" class="java.lang.String">
+		<fieldDescription><![CDATA[sumVGBL24]]></fieldDescription>
+	</field>
+	<field name="sumVGBG24" class="java.lang.String">
+		<fieldDescription><![CDATA[sumVGBG24]]></fieldDescription>
+	</field>
+	<field name="sumDPT_VGB_Hib1" class="java.lang.String">
+		<fieldDescription><![CDATA[sumDPT_VGB_Hib1]]></fieldDescription>
+	</field>
+	<field name="sumDPT_VGB_Hib2" class="java.lang.String">
+		<fieldDescription><![CDATA[sumDPT_VGB_Hib2]]></fieldDescription>
+	</field>
+	<field name="sumDPT_VGB_Hib3" class="java.lang.String">
+		<fieldDescription><![CDATA[sumDPT_VGB_Hib3]]></fieldDescription>
+	</field>
+	<field name="sumOPV1" class="java.lang.String">
+		<fieldDescription><![CDATA[sumOPV1]]></fieldDescription>
+	</field>
+	<field name="sumOPV2" class="java.lang.String">
+		<fieldDescription><![CDATA[sumOPV2]]></fieldDescription>
+	</field>
+	<field name="sumOPV3" class="java.lang.String">
+		<fieldDescription><![CDATA[sumOPV3]]></fieldDescription>
+	</field>
+	<field name="sumMeasles1" class="java.lang.String">
+		<fieldDescription><![CDATA[sumMeasles1]]></fieldDescription>
+	</field>
+	<field name="sumAmountOfFinish" class="java.lang.Integer">
+		<fieldDescription><![CDATA[sumAmountOfFinish]]></fieldDescription>
+	</field>
+	<field name="sumProtectedTetanusCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[sumProtectedTetanusCases]]></fieldDescription>
+	</field>
+	<field name="sumReactionNormalCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[sumReactionNormalCases]]></fieldDescription>
+	</field>
+	<field name="sumReactionSeriousCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[sumReactionSeriousCases]]></fieldDescription>
+	</field>
+	<field name="totalChildrenUnder1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[totalChildrenUnder1]]></fieldDescription>
+	</field>
+	<field name="totalBCG" class="java.lang.String">
+		<fieldDescription><![CDATA[totalBCG]]></fieldDescription>
+	</field>
+	<field name="totalVGBL24" class="java.lang.String">
+		<fieldDescription><![CDATA[totalVGBL24]]></fieldDescription>
+	</field>
+	<field name="totalVGBG24" class="java.lang.String">
+		<fieldDescription><![CDATA[totalVGBG24]]></fieldDescription>
+	</field>
+	<field name="totalDPT_VGB_Hib1" class="java.lang.String">
+		<fieldDescription><![CDATA[totalDPT_VGB_Hib1]]></fieldDescription>
+	</field>
+	<field name="totalDPT_VGB_Hib2" class="java.lang.String">
+		<fieldDescription><![CDATA[totalDPT_VGB_Hib2]]></fieldDescription>
+	</field>
+	<field name="totalDPT_VGB_Hib3" class="java.lang.String">
+		<fieldDescription><![CDATA[totalDPT_VGB_Hib3]]></fieldDescription>
+	</field>
+	<field name="totalOPV1" class="java.lang.String">
+		<fieldDescription><![CDATA[totalOPV1]]></fieldDescription>
+	</field>
+	<field name="totalOPV2" class="java.lang.String">
+		<fieldDescription><![CDATA[totalOPV2]]></fieldDescription>
+	</field>
+	<field name="totalOPV3" class="java.lang.String">
+		<fieldDescription><![CDATA[totalOPV3]]></fieldDescription>
+	</field>
+	<field name="totalMeasles1" class="java.lang.String">
+		<fieldDescription><![CDATA[totalMeasles1]]></fieldDescription>
+	</field>
+	<field name="totalAmountOfFinish" class="java.lang.Integer">
+		<fieldDescription><![CDATA[totalAmountOfFinish]]></fieldDescription>
+	</field>
+	<field name="totalProtectedTetanusCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[totalProtectedTetanusCases]]></fieldDescription>
+	</field>
+	<field name="totalReactionNormalCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[totalReactionNormalCases]]></fieldDescription>
+	</field>
+	<field name="totalReactionSeriousCases" class="java.lang.Integer">
+		<fieldDescription><![CDATA[totalReactionSeriousCases]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<textField>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="49" y="78" width="137" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{communeName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="303" y="60" width="244" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Huyện/quận gửi lên Tỉnh trước ngày 10 tháng sau]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="74" width="334" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tỉnh gửi lên TCMRQG và TCMR khu vực trước ngày 15 tháng sau]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="348" y="32" width="137" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{timeData}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="78" width="43" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Phường/xã:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="8" width="358" height="21"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[KẾT QUẢ TIÊM CHỦNG TRẺ EM TRONG NĂM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="32" width="33" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="9" isItalic="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tháng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="46" width="244" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Xã gửi lên huyện trước ngày 05 tháng sau]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="36" width="35" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Khu vực:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="64" width="71" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Huyện/quận/thị xã:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="8" width="35" height="13"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[BỘ Y TẾ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="737" y="74" width="75" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Mẫu 02/11-TCMR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="50" width="60" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tỉnh/thành phố:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="22" width="95" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[CHƯƠNG TRÌNH TCMR]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="67" y="50" width="137" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provinceName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="78" y="64" width="112" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{districtName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="40" y="36" width="137" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{regionName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="1" splitType="Stretch"/>
+		<band height="44">
+			<subreport runToBottom="false">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="813" height="44"/>
+				<dataSourceExpression><![CDATA[new JRBeanCollectionDataSource($F{statistics})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ImmunizationReport_Detail.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="130">
+			<staticText>
+				<reportElement x="18" y="45" width="770" height="12"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="7" isBold="true" isItalic="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[*) - Số trẻ được bảo vệ phòng UVSS là số trẻ có mẹ đã tiêm 2 mũi vắc xin phòng uốn ván khi mang thai hoặc 3 mũi vắc xin phòng uốn ván trở lên trong quá khứ.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="560" y="65" width="182" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Ngày .... tháng ..... năm ...........]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="76" width="99" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Người lập báo cáo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="583" y="76" width="73" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Thủ trưởng]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="161" y="0" width="44" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="243" y="0" width="48" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="735" y="0" width="38" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="688" y="0" width="47" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="339" y="0" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="474" y="0" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="291" y="0" width="48" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="773" y="0" width="40" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="161" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="384" y="0" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="609" y="0" width="39" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="564" y="0" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="429" y="0" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="648" y="0" width="40" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="205" y="0" width="38" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="519" y="0" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="474" y="22" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="205" y="22" width="38" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="429" y="22" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement style="content" stretchType="RelativeToTallestObject" x="384" y="22" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="609" y="22" width="39" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="22" width="161" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="688" y="22" width="47" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="161" y="22" width="44" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="648" y="22" width="40" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="519" y="22" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="243" y="22" width="48" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="339" y="22" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="735" y="22" width="38" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="773" y="22" width="40" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="564" y="22" width="45" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="291" y="22" width="48" height="22"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="65" y="1" width="31" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Cộng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="23" width="50" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Cộng dồn]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="565" y="1" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumOPV3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="609" y="1" width="37" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumMeasles1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="688" y="1" width="45" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumProtectedTetanusCases}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="385" y="1" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumDPT_VGB_Hib2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="340" y="1" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumDPT_VGB_Hib1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="207" y="1" width="34" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumBCG}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="520" y="1" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumOPV2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="161" y="1" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumChildrenUnder1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="737" y="1" width="34" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumReactionNormalCases}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="245" y="1" width="44" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumVGBL24}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="475" y="1" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumOPV1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="649" y="1" width="37" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumAmountOfFinish}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="774" y="1" width="37" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumReactionSeriousCases}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="293" y="1" width="44" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumVGBG24}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="430" y="1" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumDPT_VGB_Hib3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="520" y="23" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalOPV2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="293" y="23" width="44" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalVGBG24}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="385" y="23" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalDPT_VGB_Hib2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="565" y="23" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalOPV3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="688" y="23" width="45" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalProtectedTetanusCases}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="161" y="23" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalChildrenUnder1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="475" y="23" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalOPV1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="340" y="23" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalDPT_VGB_Hib1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="649" y="23" width="37" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalAmountOfFinish}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="609" y="23" width="37" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalMeasles1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="245" y="23" width="44" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalVGBL24}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="774" y="23" width="37" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalReactionSeriousCases}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="430" y="23" width="42" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalDPT_VGB_Hib3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="207" y="23" width="34" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalBCG}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="content" x="737" y="23" width="34" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalReactionNormalCases}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="84" y="87" width="99" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="false" isItalic="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="574" y="87" width="99" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="false" isItalic="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="56" width="770" height="12"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="7" isBold="true" isItalic="true" pdfFontName="/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(…) - Số trẻ đến tiêm tại trạm y tế xã, tính cả trẻ từ địa phương khác đến tiêm.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="380" y="2" width="25" height="13"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trang]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="407" y="2" width="20" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="435" y="2" width="20" height="13"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="430" y="2" width="5" height="13"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

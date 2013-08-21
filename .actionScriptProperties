@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<actionScriptProperties analytics="false" mainApplicationPath="MainApp.mxml" projectUUID="9ea0199d-051e-4494-85bb-e05f65beaf6b" version="10">
+  <compiler additionalCompilerArguments="-include-libraries &quot;/home/htran/HProjects/009 - HIL/05 - Program/trunk/server/hil/libs/granite-essentials.swc&quot;   -locale=en_US,vi_VN -allow-source-path-overlap=true -services &quot;/home/htran/HProjects/009 - HIL/05 - Program/trunk/server/hil/src/main/webapp/WEB-INF/flex/services-config.xml&quot; -keep-as3-metadata=Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient,Name,In,Out,Observer,Destroy,Version" autoRSLOrdering="false" copyDependentFiles="true" flex3CompatMode="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="src/main/webapp/swf" removeUnusedRSL="true" sourceFolderPath="src/main/flex" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+    <compilerSourcePath>
+      <compilerSourcePathEntry kind="1" linkType="1" path="src/main/resources/locale/{locale}"/>
+    </compilerSourcePath>
+    <libraryPath defaultLinkType="1">
+      <libraryPathEntry kind="4" path=""/>
+      <libraryPathEntry kind="1" linkType="1" path="libs"/>
+    </libraryPath>
+    <sourceAttachmentPath/>
+  </compiler>
+  <applications>
+    <application path="MainApp.mxml"/>
+  </applications>
+  <modules>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/SystemUserManagementModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/SystemUserManagementModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/VaccinationDayModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/VaccinationDayModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/ListOfChildrenDueModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/ListOfChildrenDueModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/HealthInformationInLifeModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/HealthInformationInLifeModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/GeneralReportDataModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/GeneralReportDataModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/ListOfRegionsModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/ListOfRegionsModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/PersonalModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/PersonalModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/ListOfVaccinationsModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/ListOfVaccinationsModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/LoginModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/LoginModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/ChildrenVaccinationReportModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/ChildrenVaccinationReportModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/ChildrenInformationModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/ChildrenInformationModule.mxml"/>
+    <module application="src/main/flex/MainApp.mxml" destPath="org/hil/module/components/ChildrenVaccinatedInLocationReportModule.swf" optimize="true" sourcePath="src/main/flex/org/hil/module/components/ChildrenVaccinatedInLocationReportModule.mxml"/>
+  </modules>
+  <buildCSSFiles/>
+  <flashCatalyst validateFlashCatalystCompatibility="false"/>
+</actionScriptProperties>

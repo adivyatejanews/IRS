@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module:ChildrenVaccinationReportModuleBase 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:module="org.hil.module.*" 
+	xmlns:view="org.hil.childrenvaccination.childrenvaccinationreport.view.components.*" 
+	layout="vertical" 
+	percentWidth="100" 
+	percentHeight="100">
+	
+	<view:ChildrenVaccinationReportView id="reportVaccinationReportView"/> 
+	
+</module:ChildrenVaccinationReportModuleBase>

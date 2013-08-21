@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:VaccinationDayViewBase
+	xmlns:view="org.hil.vaccinationday.view.*"
+	xmlns:component="org.hil.core.components.*"	
+	xmlns:head="org.hil.core.layout.*"
+	xmlns:hc="com.hillelcoren.components.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"	 
+	width="100%" 
+	height="100%"
+	label="{resourceManager.getString('VaccinationDay','vaccination_day')}" >
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;				
+			import org.hil.core.model.VaccinationDay;
+			import mx.controls.DateField;
+			import mx.events.DataGridEvent;		
+		]]>
+	</mx:Script>	
+	
+	<mx:HBox width="100%" height="70%" styleName="glassPods" paddingRight="15" paddingLeft="15"  paddingBottom="15" >
+		<mx:VBox width="100%" height="100%">
+		<head:GlassHeaders headerTitle="{resourceManager.getString('VaccinationDay','vaccination_day')}"/>			
+			<mx:HBox  width="100%">
+				<mx:Text text="{resourceManager.getString('VaccinationDay','province')}" paddingLeft="10"/>
+				<mx:ComboBox
+					id="comboboxProvince"
+					width="20%"
+					dataProvider="{provinces}"
+					labelField="provinceName"
+					enabled="true" change="{getAllDistricts();}" />				
+				<mx:Text text="{resourceManager.getString('VaccinationDay','district')}" paddingLeft="3"/>
+				<mx:ComboBox
+					id="comboboxDistrict"
+					width="200"
+					dataProvider="{districts1}"
+					labelField="districtName"
+					enabled="true" />
+				<mx:Button 
+					id="buttonSearch" 
+					enabled="true" 
+					label="{resourceManager.getString('VaccinationDay','search')}" 
+					click="getAllVaccinationDateByDistrict()"
+					keyDown="searchKeyboardEventHandler(event)"/>
+			</mx:HBox>		
+			<mx:HBox  width="100%">
+				<mx:Label text="{resourceManager.getString('VaccinationDay','all_vaccination_date')}"/>
+				<mx:NumericStepper 
+					id="numericVaccinationDateAll"										 
+					width="60" maximum="28" />
+				<mx:Button 
+					id="updateButton" 
+					enabled="true" 
+					label="{resourceManager.getString('VaccinationDay','update_date')}" 
+					click="updateAllVaccinationDate()"
+					keyDown="handleUpdateDateKeyboard(event)" />
+			</mx:HBox>
+		<component:RowColorDataGrid			 
+			rowCount="8"
+			id="gridVaccination"  
+			dataProvider="{vaccinationDates}" 			
+		    liveScrolling="false" 
+			width="100%"	
+			height="100%"		
+			change="{				
+
+			}">			
+			<component:columns>
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('VaccinationDay','commune_name')}" 
+					dataField="commune.communeName" />
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('VaccinationDay','date_of_vaccination')}" 
+					dataField="dateInMonth" 
+					width="300" labelFunction="dateInMonthFunction"/>											
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('VaccinationDay','notes')}" 
+					dataField="notes" />				
+			</component:columns>
+		</component:RowColorDataGrid>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HBox width="100%" height="30%" styleName="glassPods" paddingRight="15" paddingLeft="15"  paddingBottom="15" >			
+		<mx:VBox width="100%" height="100%">
+			<head:GlassHeaders headerTitle="{resourceManager.getString('VaccinationDay','input_form')}"/>
+			<mx:Form id="communeForm" height="100%" width="100%">					
+				<mx:FormItem 
+					label="{resourceManager.getString('VaccinationDay','commune_name')}" 
+					required="true" width="100%">
+					<component:TextInputUTF8 
+						id="textCommuneName" 
+						text="{VaccinationDay(gridVaccination.selectedItem).commune.communeName}" 
+						width="50%"
+						required="true"
+						minTextValidatorLength="2"
+						enableValidator="true"
+						change="{
+																				
+						}"
+						editable="false"/>
+				</mx:FormItem>
+				<mx:FormItem 
+					label="{resourceManager.getString('VaccinationDay','date_of_vaccination')}" 
+					required="true" width="100%">			
+					<mx:NumericStepper 
+						id="numericVaccinationDate"										 
+						width="60" maximum="28" value="{VaccinationDay(gridVaccination.selectedItem).dateInMonth}"	/>					
+				</mx:FormItem>
+				<mx:FormItem 
+					label="{resourceManager.getString('VaccinationDay','notes')}"
+					 width="100%">
+					<component:TextAreaUTF8 
+						id="textNotes" 
+						text="{VaccinationDay(gridVaccination.selectedItem).notes}" 
+						width="50%" />
+				</mx:FormItem>
+			</mx:Form>
+			<mx:ControlBar width="100%" height="100%">
+				<mx:HBox width="100%" height="100%">														
+					<mx:Button 
+						id="buttonSave"
+						enabled="true"
+						label="{resourceManager.getString('VaccinationDay','save')}"
+						click="saveVaccinationDate()"
+						keyDown="saveVaccinationDateKeyboardEventHamdler(event)"/>							
+				</mx:HBox>
+			</mx:ControlBar>
+		</mx:VBox>		
+	</mx:HBox>			
+</view:VaccinationDayViewBase>

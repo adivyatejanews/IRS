@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app:MainAppBase xmlns:mx="http://www.adobe.com/2006/mxml"
+				 xmlns:app="org.hil.module.*"
+				 xmlns:view="org.hil.mainapp.view.components.*"
+				 layout="vertical"
+				 preinitialize="Spring.getInstance().initApplication()" backgroundColor="0xBDBDBD" backgroundGradientAlphas="[1.0, 1.0]" backgroundGradientColors="[#BDBDBD, #BDBDBD]">
+	<mx:Metadata>
+        [Name("mainAppView")]
+    </mx:Metadata>
+
+	<mx:Style source="assets/css/main.css"/>
+	<mx:Script>
+		<![CDATA[
+			import org.granite.tide.spring.Spring;
+			import flash.net.navigateToURL;
+			
+			private function onLinkClick( event:TextEvent ):void {
+				var url:URLRequest = new URLRequest( event.text );
+				navigateToURL( url, '_blank' );
+			}
+		]]>
+	</mx:Script>
+	<mx:ApplicationControlBar width="100%">		
+		<mx:Button id="buttonEnglish"
+				   label="{resourceManager.getString('MainApp','english')}"
+				   click="changeLocale('en_US')"
+				   visible="true"/>
+		<mx:Button id="buttonVietnamese"
+				   label="{resourceManager.getString('MainApp','vietnamese')}"
+				   click="changeLocale('vi_VN')"
+				   visible="true"/>
+		<mx:Button id="buttonLogout" visible="{identity.loggedIn}" 
+				   label="{resourceManager.getString('MainApp','logout')}"
+				   click="doLogout()"/>		 
+		<mx:Label  visible="{identity.loggedIn}" text="{resourceManager.getString('MainApp','username')}:"/>
+		<mx:Label id="txtUserName"  visible="{identity.loggedIn}"
+				  text="{globalUserAuthentication.account}"/>
+		<mx:HBox width="100%" horizontalAlign="right">
+			<mx:Text color="0xB40404" condenseWhite="true"  click="gotoHelpInfor();" useHandCursor="true" buttonMode="true" 
+					 mouseChildren="false" 
+					 fontSize="13" htmlText="{resourceManager.getString('MainApp','help_infor')}" selectable="true" />
+			<mx:Label color="0xB40404" text=" | "/>
+			<mx:Text id="linkMobile" link="onLinkClick( event )" selectable="true" fontSize="13" condenseWhite="true" htmlText="{resourceManager.getString('MainApp','j2medownload')}" color="0xB40404"/>
+		</mx:HBox>
+	</mx:ApplicationControlBar>
+	<mx:ViewStack id="appView"
+				  width="100%"
+				  height="100%"
+				  selectedIndex="{int(identity.loggedIn)}">
+		<mx:Canvas id="viewStackLogin"
+				   width="100%"
+				   height="100%"
+				   creationComplete="loginViewCreationCompleteHandler(event)"/>
+		<mx:Canvas id="viewStackHealthInformationInLife"
+				   width="100%"
+				   height="100%"
+				   creationComplete="healthInformationInLifeViewCreationCompleteHandler(event)"/>
+	</mx:ViewStack>	
+</app:MainAppBase>

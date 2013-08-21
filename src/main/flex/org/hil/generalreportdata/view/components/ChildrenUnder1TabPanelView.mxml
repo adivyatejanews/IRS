@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ChildrenUnder1TabPanelViewBase
+	xmlns:view="org.hil.generalreportdata.view.*"
+	xmlns:component="org.hil.core.components.*"	
+	xmlns:head="org.hil.core.layout.*"
+	xmlns:hc="com.hillelcoren.components.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"	 
+	width="100%" 
+	height="100%"
+	label="{resourceManager.getString('GeneralReportData','total_children_under_1')}" >
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.DateField;
+			import mx.events.DataGridEvent;
+			
+			import org.hil.core.model.ChildrenUnder1;		
+		]]>
+	</mx:Script>	
+
+	<mx:VBox width="100%" height="100%">
+		<head:GlassHeaders headerTitle="{resourceManager.getString('GeneralReportData','total_children_under_1')}"/>			
+		<mx:HBox  width="100%">
+			<mx:Text text="{resourceManager.getString('GeneralReportData','time')}" paddingLeft="10"/>
+			<component:DateFieldAutoCorrect 
+				id="timeData"
+				formatString="{resourceManager.getString('GeneralReportData','month_year_format')}"
+				yearNavigationEnabled="true"
+				editable="true"
+				width="120" selectedDate="{new Date()}" />				
+			<mx:Text text="{resourceManager.getString('GeneralReportData','province')}" paddingLeft="3"/>
+			<mx:ComboBox
+				id="comboboxProvince"
+				width="20%"
+				dataProvider="{provinces}"
+				labelField="provinceName"
+				change="{getAllDistricts();}" enabled="false" editable="false"/>				
+			<mx:Text text="{resourceManager.getString('GeneralReportData','district')}" paddingLeft="3"/>
+			<mx:ComboBox
+				id="comboboxDistrict"
+				width="200"
+				dataProvider="{districts1}"
+				labelField="districtName"
+				enabled="true" />
+			<mx:HBox id="communeName">
+				<mx:Text text="{resourceManager.getString('GeneralReportData','commune')}" paddingLeft="3"/>
+				<component:TextInputUTF8																			
+					editable="false"
+					width="150" text="{globalUserAuthentication.user.commune.communeName}"/>	
+			</mx:HBox>			
+		</mx:HBox>
+		<mx:HBox>
+			<mx:Text text="" paddingLeft="0"/>
+			<mx:Button 
+				id="buttonSearch" 
+				enabled="true"
+				label="{resourceManager.getString('GeneralReportData','search')}" 
+				click="getAllChildrenUnder1InCommunesByDistrict()"
+				keyDown="searchKeyboardEventHandler(event)"/>	
+		</mx:HBox>		
+		<component:RowColorDataGrid			 
+			rowCount="8" editable="true"
+			id="gridChildrenUnder1"  
+			dataProvider="{childrenUnder1Datas}" 			
+		    liveScrolling="false" 
+			width="100%"	
+			height="100%"		
+			change="{				
+
+			}">			
+			<component:columns>
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('GeneralReportData','commune_name')}" 
+					dataField="commune.communeName" editable="false"/>
+				<component:DataGridColumn id="gridChildrenUnder1TotalColumn"
+					headerText="{resourceManager.getString('GeneralReportData','total_children_under_1')}" 
+					dataField="strTotalChildrenUnder1" 
+					width="300" editable="false">
+					<component:itemEditor>
+						<mx:Component>
+							<mx:TextInput restrict="0-9"/>
+						</mx:Component>
+					</component:itemEditor>
+				</component:DataGridColumn>
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('GeneralReportData','notes')}" 
+					dataField="notes" editable="false"/>				
+			</component:columns>
+		</component:RowColorDataGrid>
+		<mx:ControlBar width="100%" height="40">
+			<mx:HBox width="100%" height="40">
+				<mx:Button 
+					id="buttonEdit"
+					enabled="true"
+					label="{resourceManager.getString('GeneralReportData','edit')}"
+					click="editChildrenUnder1()"
+					keyDown="editChildrenUnder1KeyboardEventHamdler(event)"/>
+				<mx:Button 
+					id="buttonSave"
+					enabled="true"
+					label="{resourceManager.getString('GeneralReportData','save')}"
+					click="saveChildrenUnder1()"
+					keyDown="saveChildrenUnder1KeyboardEventHamdler(event)"/>
+				<mx:Button 
+					id="buttonCancel"
+					enabled="true"
+					label="{resourceManager.getString('GeneralReportData','cancel')}"
+					click="cancelChildrenUnder1()"
+					keyDown="cancelChildrenUnder1KeyboardEventHamdler(event)"/>
+				<mx:Button 
+					id="buttonClearAll"
+					enabled="true"
+					label="{resourceManager.getString('GeneralReportData','clear_all')}"
+					click="clearAllChildrenUnder1()"
+					keyDown="clearAllChildrenUnder1KeyboardEventHamdler(event)"/>
+			</mx:HBox>
+		</mx:ControlBar>
+	</mx:VBox>
+</view:ChildrenUnder1TabPanelViewBase>

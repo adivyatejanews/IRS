@@ -1,0 +1,145 @@
+package org.hil.vaccinationday.view
+{
+	import flash.events.KeyboardEvent;	
+	import mx.collections.ArrayCollection;
+	import mx.collections.ListCollectionView;
+	import mx.containers.VBox;
+	import mx.controls.Alert;
+	import mx.controls.Button;
+	import mx.controls.NumericStepper;
+	import mx.events.CloseEvent;
+	import mx.events.FlexEvent;
+	import mx.events.ValidationResultEvent;
+	import mx.managers.PopUpManager;
+	import mx.validators.StringValidator;
+	import mx.controls.ComboBox;
+	import org.hil.core.components.ChooserUTF8;
+	import org.hil.core.components.DataGrid;
+	import org.hil.core.components.DataGridColumn;
+	import org.hil.core.components.RowColorDataGrid;
+	import org.hil.core.components.TextAreaUTF8;
+	import org.hil.core.components.TextInputUTF8;
+	import org.hil.core.model.Commune;
+	import org.hil.core.model.District;
+	import org.hil.core.model.Province;
+	import org.hil.core.model.VaccinationDay;
+	import org.hil.core.model.vo.UserAuthentication;
+	import org.granite.tide.events.TideUIEvent;
+	import org.granite.tide.spring.Context;
+	import org.granite.tide.spring.Spring;
+	
+	[ResourceBundle("VaccinationDay")]
+	public class VaccinationDayViewBase extends VBox {
+		public var tideContext:Context = Spring.getInstance().getSpringContext();
+		[Bindable][In]	
+		public var provinces:ArrayCollection = new ArrayCollection();
+		[Bindable][In]	
+		public var districts1: ArrayCollection = new ArrayCollection();
+		[Bindable][In]	
+		public var vaccinationDates: ArrayCollection = new ArrayCollection();
+		[Bindable][In][Out]
+		public var vaccinationDay:VaccinationDay = new VaccinationDay();
+		[Bindable][Out]
+		public var vacinDistrict:District = new District();
+		[Bindable] [In]
+		public var globalUserAuthentication:UserAuthentication = new UserAuthentication();
+		//----Id of components		
+		[Bindable]
+		public var gridVaccination:RowColorDataGrid;
+		public var buttonSave:Button;
+		[Bindable]
+		public var textCommuneName:TextInputUTF8;
+		[Bindable]
+		public var numericVaccinationDate:NumericStepper;
+		[Bindable]
+		public var numericVaccinationDateAll:NumericStepper;
+		[Bindable]
+		public var textNotes:TextAreaUTF8;
+		public var isNew:Boolean = true;
+		[Bindable]
+		public var comboboxProvince:ComboBox;
+		[Bindable]
+		public var comboboxDistrict:ComboBox;
+		
+		public function VaccinationDayViewBase() {		
+			super();			
+			this.addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);		
+		}
+		
+		public function creationCompleteHandler(event:FlexEvent):void {			
+			tideContext.vaccinationDayView = this;			
+			comboboxProvince.selectedItem = globalUserAuthentication.user.commune.district.province;
+			getAllDistricts();			
+			dispatchEvent(new TideUIEvent("vaccinationday_getAllDistricts", globalUserAuthentication.user.commune.district));
+			vacinDistrict = globalUserAuthentication.user.commune.district;
+			dispatchEvent(new TideUIEvent("vaccinationday_getAllVaccinationDateByDistrict"));
+		}
+		
+		public function getAllDistricts():void {
+			if (comboboxProvince.selectedItem != null) {
+				dispatchEvent(new TideUIEvent("vaccinationday_getAllDistricts", Province(comboboxProvince.selectedItem)));
+			}			
+		}
+		[Observer("vaccinationday_afterGetAllDistricts")]
+		public function afterGetAllDistricts():void {
+			if (districts1.contains(globalUserAuthentication.user.commune.district))
+				comboboxDistrict.selectedItem = globalUserAuthentication.user.commune.district;
+		}
+		
+		public function getAllVaccinationDateByDistrict():void {
+			if (comboboxProvince.selectedItem == null) {
+				return;
+			}
+			if (comboboxDistrict.selectedItem == null) {
+				return
+			}
+			vacinDistrict = District(comboboxDistrict.selectedItem);
+			dispatchEvent(new TideUIEvent("vaccinationday_getAllVaccinationDateByDistrict"));
+		}		
+		
+		public function searchKeyboardEventHandler(e:KeyboardEvent):void {
+			if(e.keyCode == 13) {
+				getAllVaccinationDateByDistrict();
+			}
+		}
+		
+		public function updateAllVaccinationDate():void {
+			if (numericVaccinationDateAll.value == 0) {
+				Alert.show(resourceManager.getString('VaccinationDay','alert.wrong_date'));
+				return;
+			}			
+			dispatchEvent(new TideUIEvent("vaccinationday_updateAllVaccinationDate", numericVaccinationDateAll.value));
+		}
+		public function handleUpdateDateKeyboard(e:KeyboardEvent):void {
+			if(e.keyCode == 13){
+				updateAllVaccinationDate();
+			}
+		}
+		
+		public function saveVaccinationDate():void {
+			if (textCommuneName.text.length == 0) {				
+				return;
+			}
+			if (numericVaccinationDate.value == 0) {
+				Alert.show(resourceManager.getString('VaccinationDay','alert.wrong_date'));
+				return;
+			}
+			vaccinationDay = VaccinationDay(gridVaccination.selectedItem);
+			vaccinationDay.dateInMonth = numericVaccinationDate.value;
+			vaccinationDay.notes = textNotes.text;
+			dispatchEvent(new TideUIEvent("vaccinationday_saveVaccinationDate"));
+		}
+		public function saveVaccinationDateKeyboardEventHamdler(e:KeyboardEvent):void {
+			if(e.keyCode == 13) {
+				saveVaccinationDate();
+			}
+		}
+		
+		public function dateInMonthFunction(item:Object, column:DataGridColumn):String {
+			if (String(item.dateInMonth) == 'NaN')
+				return "";
+			else
+				return item.dateInMonth;
+		}
+	}
+}

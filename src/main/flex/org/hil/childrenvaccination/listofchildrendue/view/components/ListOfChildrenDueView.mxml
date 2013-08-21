@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ListOfChildrenDueViewBase 
+	xmlns:view="org.hil.childrenvaccination.listofchildrendue.view.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:component="org.hil.core.components.*"
+	xmlns:head="org.hil.core.layout.*"
+	width="100%"
+	height="100%"
+	xmlns:layout="org.hil.core.layout.*">
+	<mx:Script>
+		<![CDATA[			
+			import mx.controls.DateField;
+		]]>
+	</mx:Script>		
+	<mx:VBox width="100%" height="100%">
+		<head:GlassHeaders headerTitle="{resourceManager.getString('ListOfChildrenDue','list_of_children_due_in_your_location')}" color="0x153E7E"/>
+		<mx:Canvas
+			width="100%" 
+			height="100%"
+			horizontalScrollPolicy="off"
+			verticalScrollBarStyleName="fseVerticalScrollBar">
+			<mx:Form width="100%" height="100%">
+				<mx:FormItem 
+					label="{resourceManager.getString('ListOfChildrenDue','time')}"
+					labelWidth="70">
+					<component:DateFieldAutoCorrect 
+						id="timeDue"
+						formatString="{resourceManager.getString('ListOfChildrenDue','month_year_format')}"
+						yearNavigationEnabled="true"
+						editable="true"
+						width="120" />								
+				</mx:FormItem>
+				<mx:HBox width="100%" height="30">
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfChildrenDue','province')}"
+						labelWidth="70">
+						<mx:ComboBox
+							id="comboboxProvince"
+							width="120"
+							dataProvider="{provinces}"
+							labelField="provinceName"
+							change="{getAllDistricts();}" enabled="false" editable="false" color="0x153E7E" />						
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfChildrenDue','district')}"
+						labelWidth="50">
+						<mx:ComboBox
+							id="comboboxDistrict"
+							width="120"
+							dataProvider="{districts5}"
+							labelField="districtName"
+							change="{getAllCommunes();}" enabled="false" editable="false" color="0x153E7E" />						
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfChildrenDue','commune')}"
+						labelWidth="70">
+						<mx:ComboBox
+							id="comboboxCommune"
+							width="200"
+							dataProvider="{communes5}"
+							labelField="communeName"
+							enabled="true" />						
+					</mx:FormItem>
+					<mx:FormItem label="" labelWidth="5">
+						<mx:Button id="buttonLoad"
+								   label="{resourceManager.getString('ListOfChildrenDue','preview_list')}"
+								   click="getListOfChildrenDueInSelectedLocation();"
+								   enabled="true"/>
+					</mx:FormItem>
+				</mx:HBox>
+				<mx:Spacer height="6"/>
+				<mx:HBox>
+					<mx:Label text="{resourceManager.getString('ListOfChildrenDue','total_children_due')}{childrenDue.length}" color="0x298A08"/>
+					<mx:Label paddingLeft="10" text="({resourceManager.getString('ListOfChildrenDue','click_to_edit')})" color="red"/>	
+				</mx:HBox>			
+				
+				<component:DataGridSortable id="dataGridVaccinationHistory"
+											doubleClickEnabled="true"
+											dropShadowEnabled="true"
+											dropShadowColor="#AAAAAA"
+											dataProvider="{childrenDue}" toolTip="{resourceManager.getString('ListOfChildrenDue','click_to_edit')}"																										
+											width="100%" doubleClick="openVaccinationHistoryPopup();"
+											height="100%" rowHeight="80">
+					<component:columns>						
+						<component:DataGridColumn headerText="{resourceManager.getString('ListOfChildrenDue','name')}"
+												  dataField="fullName"
+												  width="120"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ListOfChildrenDue','child_DOB')}"
+												  dataField="dateOfBirth" labelFunction="formatDate" 
+												  width="55" sortCompareFunction="dateCompareFunction"/>
+						<component:DataGridColumn headerText=""
+												  dataField="gender"
+												  width="20" labelFunction="genderConvert"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ListOfChildrenDue','mother_name')}"
+												  dataField="motherName"
+												  width="100"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ListOfChildrenDue','mother_year_of_birth')}"
+												  dataField="motherBirthYear"
+												  width="30" labelFunction="motherBirthYearConvert"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ListOfChildrenDue','mobile')}"
+												  dataField="motherMobile"
+												  width="30" />
+						<component:DataGridColumn headerText="{resourceManager.getString('ListOfChildrenDue','father_name')}"
+												  dataField="fatherName"
+												  width="100"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ListOfChildrenDue','address')}"
+												  dataField="residen"
+												  width="40"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ListOfChildrenDue','vaccines')}"
+												  dataField="vaccines"
+												  width="120" />						
+					</component:columns>
+				</component:DataGridSortable>
+				<mx:Spacer height="6"/>
+				<mx:Button id="buttonPrint"
+						   label="{resourceManager.getString('ListOfChildrenDue','export_pdf')}"
+						   click="printListChildrenDue();"
+						   enabled="false"/>						
+			</mx:Form>
+		</mx:Canvas>		
+	</mx:VBox>
+</view:ListOfChildrenDueViewBase>

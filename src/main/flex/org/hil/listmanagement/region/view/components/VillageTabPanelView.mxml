@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:VillageTabPanelViewBase
+	xmlns:view="org.hil.listmanagement.region.view.*"
+	xmlns:component="org.hil.core.components.*"	
+	xmlns:head="org.hil.core.layout.*"
+	xmlns:hc="com.hillelcoren.components.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"	 
+	width="100%" 
+	height="100%"
+	label="{resourceManager.getString('ListOfRegions','list_of_villages')}" >
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;				
+			import org.hil.core.model.Village;
+			import mx.controls.DateField;
+			import mx.events.DataGridEvent;		
+		]]>
+	</mx:Script>	
+	
+	<mx:HBox width="100%" height="70%" styleName="glassPods" paddingRight="15" paddingLeft="15"  paddingBottom="15" >
+		<mx:VBox 
+		width="100%" 
+		height="100%">
+		<head:GlassHeaders headerTitle="{villages.length}{resourceManager.getString('ListOfRegions','village')}"/>			
+				<mx:HBox  width="100%">
+					<mx:Text text="{resourceManager.getString('ListOfRegions','province')}" paddingLeft="10"/>
+					<mx:ComboBox
+						id="comboboxProvince"
+						width="200"
+						dataProvider="{provinces}"
+						labelField="provinceName"
+						enabled="true" change="{getAllDistricts();}" />
+					<mx:Text text="{resourceManager.getString('ListOfRegions','district')}" paddingLeft="10"/>
+					<mx:ComboBox
+						id="comboboxDistrict"
+						width="200"
+						dataProvider="{districts}"
+						labelField="districtName"
+						enabled="true" change="{getAllCommunes();}" />					
+					<mx:Text text="{resourceManager.getString('ListOfRegions','commune')}" paddingLeft="10"/>
+					<mx:ComboBox
+						id="comboboxCommune"
+						width="200"
+						dataProvider="{communes}"
+						labelField="communeName"
+						enabled="true" />
+					<mx:Button 
+						id="searchButton" 
+						enabled="true" 
+						label="{resourceManager.getString('ListOfRegions','search')}" 
+						click="getAllVillages()"
+						keyDown="searchKeyboardEventHandler(event)"/>
+				</mx:HBox>			
+		<component:RowColorDataGrid			 
+			rowCount="8"
+			id="gridVillage"  
+			dataProvider="{villages}" 			
+		    liveScrolling="false" 
+			width="100%"	
+			height="100%"		
+			doubleClickEnabled="true"
+			doubleClick="getVillage();" >			
+			<component:columns>
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfRegions','village_name')}" 
+					dataField="villageName" />
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfRegions','village_id')}" 
+					dataField="villageId" 
+					width="150"/>											
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfRegions','notes')}" 
+					dataField="notes" />				
+			</component:columns>
+		</component:RowColorDataGrid>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HBox width="100%" height="30%" styleName="glassPods" paddingRight="15" paddingLeft="15"  paddingBottom="15" >	
+			
+			<mx:VBox 
+				 width="100%" 
+				 height="100%">
+				<head:GlassHeaders headerTitle="{resourceManager.getString('ListOfRegions','input_form')}"/>
+				<mx:Form 
+					id="villageForm" 
+					height="100%"
+					width="100%">
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','province_name')}" 
+						width="100%">			
+						<mx:Text id="textProvinceName" color="red"/>					
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','district_name')}" 
+						width="100%">			
+						<mx:Text id="textDistrictName" color="red"/>					
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','commune_name')}" 
+						width="100%">			
+						<mx:Text id="textCommuneName" color="red"/>					
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','village_name')}" 
+						required="true"
+						width="100%">			
+						<component:TextInputUTF8 
+							id="textVillageName" 
+							width="50%"
+							required="true"
+							minTextValidatorLength="2"
+							enableValidator="true"
+							change="{
+								if(textVillageName.text.length!=0) {
+									buttonSave.enabled=true;
+									textVillageId.enabled = true;
+									textNotes.enabled = true;
+									buttonReset.enabled = true;
+								} else {
+									buttonSave.enabled=false;
+									textVillageId.enabled = false;
+									textNotes.enabled = false;
+									buttonReset.enabled = false;
+								}													
+							}" />					
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','village_id')}" 
+						required="true"
+						 width="100%">
+						<component:TextInputUTF8 
+							id="textVillageId"							 
+							width="50%"
+							required="true"
+							minTextValidatorLength="2"
+							enableValidator="true"							
+							focusOut="autoUpperVillageId()"
+							updateComplete="enableButtonSave()"  />
+					</mx:FormItem>					
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','notes')}"
+						 width="100%">
+						<component:TextAreaUTF8 
+							id="textNotes"							 
+							width="50%" />
+					</mx:FormItem>
+				</mx:Form>
+			<mx:ControlBar width="100%" height="100%">
+				<mx:HBox width="100%" height="100%">
+							<mx:Button id="buttonNew" 
+								label="{resourceManager.getString('ListOfRegions','new')}" 
+								click="newVillage()" 
+								enabled="true"
+								keyDown="newKeyboardEventHandler(event)"/>							
+							<mx:Button 
+								id="buttonSave" 
+								label="{resourceManager.getString('ListOfRegions','save')}"
+								click="saveVillage()"
+								keyDown="saveKeyboardEventHandler(event)"/>					
+							<mx:Button 
+								id="buttonDelete" 
+								label="{resourceManager.getString('ListOfRegions','delete')}" 
+								click="alertDeleteVillage()" 
+								keyDown="deleteKeyboardEventHandler(event)"/>
+							<mx:Button 
+								id="buttonReset" 
+								label="{resourceManager.getString('ListOfRegions','reset')}" 
+								click="resetVillage()"
+								keyDown="resetKeyboardEventHandler(event)"/>
+					</mx:HBox>
+			</mx:ControlBar>
+		</mx:VBox>		
+	</mx:HBox>			
+</view:VillageTabPanelViewBase>

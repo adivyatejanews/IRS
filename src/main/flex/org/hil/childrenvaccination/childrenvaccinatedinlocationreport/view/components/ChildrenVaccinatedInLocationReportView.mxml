@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ChildrenVaccinatedInLocationReportViewBase 
+	xmlns:view="org.hil.childrenvaccination.childrenvaccinatedinlocationreport.view.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:component="org.hil.core.components.*"
+	xmlns:head="org.hil.core.layout.*"
+	width="100%"
+	height="100%"
+	xmlns:layout="org.hil.core.layout.*">
+	<mx:Script>
+		<![CDATA[			
+			import mx.controls.DateField;
+		]]>
+	</mx:Script>
+	
+	<mx:VBox width="100%" id="testshow"
+			 height="100%">
+		<head:GlassHeaders headerTitle="{resourceManager.getString('ChildrenVaccinatedInLocationReport','children_vaccinated_in_location_report')}" color="0x153E7E"/>
+		<mx:Canvas
+			width="100%" 
+			height="100%"
+			horizontalScrollPolicy="off"
+			verticalScrollBarStyleName="fseVerticalScrollBar">
+			<mx:Form width="100%" height="100%">				
+				<mx:HBox width="100%" height="30">
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinatedInLocationReport','from')}" paddingLeft="10"/>
+					<component:DateFieldAutoCorrect 
+						id="timeFrom"
+						formatString="{resourceManager.getString('ChildrenVaccinatedInLocationReport','month_year_format')}"
+						yearNavigationEnabled="true"
+						editable="true"
+						width="90" selectedDate="{new Date()}"/>								
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinatedInLocationReport','to')}" />
+					<component:DateFieldAutoCorrect 
+						id="timeTo"
+						formatString="{resourceManager.getString('ChildrenVaccinatedInLocationReport','month_year_format')}"
+						yearNavigationEnabled="true"
+						editable="true"
+						width="90" selectedDate="{new Date()}" />								
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinatedInLocationReport','province')}" paddingLeft="5"/>
+					<mx:ComboBox
+						id="comboboxProvince"
+						width="120"
+						dataProvider="{provinces}"
+						labelField="provinceName"
+						change="{getAllDistricts();}" enabled="false" editable="false" color="0x153E7E" />						
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinatedInLocationReport','district')}" />
+					<mx:ComboBox
+						id="comboboxDistrict"
+						width="120"
+						dataProvider="{districts6}"
+						labelField="districtName"
+						change="{getAllCommunes();}" enabled="false" editable="false" color="0x153E7E" />					
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinatedInLocationReport','commune')}" />
+					<mx:ComboBox
+						id="comboboxCommune"
+						width="200"
+						dataProvider="{communes6}"
+						labelField="communeName"
+						enabled="true"/>																
+				</mx:HBox>
+				<mx:HBox>
+					<mx:Text text="{resourceManager.getString('ChildrenVaccinatedInLocationReport','vaccine')}" paddingLeft="10"/>
+					<mx:ComboBox id="comboboxVaccine"
+								 width="350"
+								 dataProvider="{vaccines}"
+								 labelField="name"
+								 enabled="true" selectedIndex="0"
+								 />				
+					<mx:Button id="buttonLoad"
+							   label="{resourceManager.getString('ChildrenVaccinatedInLocationReport','preview_list')}"
+							   click="getChildrenVaccinatedInLocationReport();"
+							   enabled="true"/>
+				</mx:HBox>
+				<mx:Spacer height="6"/>
+				<mx:Label text="{statisticsInLocaion.length} {resourceManager.getString('ChildrenVaccinatedInLocationReport','children')}"/>
+				<component:RowColorDataGrid id="dataGridReport"
+											doubleClickEnabled="false"
+											dropShadowEnabled="true"
+											dropShadowColor="#AAAAAA"
+											dataProvider="{statisticsInLocaion}"																										
+											width="100%"
+											height="100%" headerHeight="30">
+					<component:columns>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','commune')}"
+												  dataField="communeName" headerWordWrap="true"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','village')}"
+												  dataField="villageName"
+												  width="20" headerWordWrap="true"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','child_code')}"
+												  dataField="childCode"
+												  width="20"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','child_name')}"
+												  dataField="fullName" headerWordWrap="true"
+												  width="30" />
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','child_gender')}"
+												  dataField="gender" headerWordWrap="true" labelFunction="genderConvert"
+												  width="10"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','child_DOB')}"
+												  dataField="dateOfBirth" headerWordWrap="true"
+												  width="17" labelFunction="formatDate"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','mother_name')}"
+												  dataField="motherName" headerWordWrap="true"
+												  width="17"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','vaccination_date')}"
+												  dataField="dateOfImmunization" headerWordWrap="true" labelFunction="formatDate"
+												  width="17"/>
+						<component:DataGridColumn headerText="{resourceManager.getString('ChildrenVaccinatedInLocationReport','vaccination_location')}"
+												  dataField="vaccinatedCommune" labelFunction="convertVaccinatedLocation"
+												  width="20"/>						
+					</component:columns>
+				</component:RowColorDataGrid>
+				<mx:Spacer height="6"/>
+				<mx:HBox>					
+					<mx:Button id="buttonPrintExcel"
+							   label="{resourceManager.getString('ChildrenVaccinatedInLocationReport','export_excel')}"
+							   click="printListVaccinatedInLocationReport('excel');"
+							   enabled="false"/>
+				</mx:HBox>				
+			</mx:Form>
+		</mx:Canvas>		
+	</mx:VBox>
+</view:ChildrenVaccinatedInLocationReportViewBase>

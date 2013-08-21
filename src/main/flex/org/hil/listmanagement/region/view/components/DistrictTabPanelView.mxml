@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:DistrictTabPanelViewBase
+	xmlns:view="org.hil.listmanagement.region.view.*"
+	xmlns:component="org.hil.core.components.*"	
+	xmlns:head="org.hil.core.layout.*"
+	xmlns:hc="com.hillelcoren.components.*"	
+	xmlns:mx="http://www.adobe.com/2006/mxml"	 
+	width="100%" 
+	height="100%"
+	label="{resourceManager.getString('ListOfRegions','list_of_districts')}">
+	
+	<mx:Script>
+		<![CDATA[			
+			import mx.collections.ArrayCollection;				
+			import org.hil.core.model.District;
+			import org.hil.core.model.Province;	
+			import mx.controls.DateField;
+			import mx.events.DataGridEvent;		
+	
+		]]>
+	</mx:Script>	
+
+	<mx:HBox 
+		width="100%" 
+		height="70%" 
+		styleName="glassPods" 
+		paddingRight="15" 
+		paddingLeft="15"  
+		paddingBottom="15" >
+		<mx:VBox width="100%" height="100%" >
+			<head:GlassHeaders headerTitle="{districts.length}{resourceManager.getString('ListOfRegions','district')}"/>			
+			<mx:HBox  width="100%">
+				<mx:Text text="{resourceManager.getString('ListOfRegions','province')}" paddingLeft="10"/>	
+				<mx:ComboBox
+					id="comboboxProvince"
+					width="200"
+					dataProvider="{provinces}"
+					labelField="provinceName"
+					enabled="true" />
+				<mx:Button 
+					id="buttonSearch" 
+					enabled="true" 
+					label="{resourceManager.getString('ListOfRegions','search')}" 
+					click="getAllDistricts()"
+					keyDown="searchKeyboardEventHandler(event)"/>				
+			</mx:HBox>
+						
+		<component:RowColorDataGrid			 
+			id="gridDistrict"
+			rowCount="8"  
+			dataProvider="{districts}"			
+			width="100%"	
+			height="100%"		
+			doubleClickEnabled="true"
+			doubleClick="getDistrict();" >
+			<component:columns>				
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfRegions','district_name')}" 
+					dataField="districtName"
+					sortable="true" 
+					sortDescending="false" />
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfRegions','district_id')}" 
+					dataField="districtId" 
+					width="150" />											
+				<component:DataGridColumn 
+					headerText="{resourceManager.getString('ListOfRegions','notes')}" 
+					dataField="notes" />				
+			</component:columns>
+			</component:RowColorDataGrid>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HBox 
+		width="100%" 
+		height="30%" 
+		styleName="glassPods" 
+		paddingRight="15" 
+		paddingLeft="15"  
+		paddingBottom="15" >				
+			<mx:VBox 
+				width="100%" 
+				height="100%">
+				<head:GlassHeaders headerTitle="{resourceManager.getString('ListOfRegions','input_form')}"/>
+				<mx:Form 
+					height="100%"
+					id="districtForm" 
+					width="100%">
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','province_name')}" 
+						width="100%">			
+						<mx:Text id="textProvinceName" color="red"/>					
+					</mx:FormItem>
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','district_name')}" 
+						required="true"
+						width="100%">			
+						<component:TextInputUTF8 
+							id="textDistrictName"							 
+							width="50%"
+							required="true"
+							enableValidator="true"
+							minTextValidatorLength="2"
+							change="{
+								if(textDistrictName.text.length!=0) {
+									buttonSave.enabled=true;
+									textDistrictId.enabled = true;
+									textNotes.enabled = true;
+									buttonReset.enabled = true;
+								} else {
+									buttonSave.enabled=false;
+									textDistrictId.enabled = false;
+									textNotes.enabled = false;
+									buttonReset.enabled = false;
+								}
+							}" />					
+					</mx:FormItem>	
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','district_id')}" 
+						required="true"
+						 width="100%">
+						<component:TextInputUTF8 
+							id="textDistrictId"						 
+							width="50%"
+							required="true"
+							minTextValidatorLength="2"
+							enableValidator="true"
+							change="{
+																								
+							}"							
+							focusOut="autoUpperDistrictId()"
+							updateComplete="enableButtonSave()" />
+					</mx:FormItem>					
+					<mx:FormItem 
+						label="{resourceManager.getString('ListOfRegions','notes')}"
+						 width="100%">
+						<component:TextAreaUTF8 
+							id="textNotes" 
+							width="50%" />
+					</mx:FormItem>
+				</mx:Form>
+			<mx:ControlBar 
+				width="100%" 
+				height="100%">
+				<mx:HBox 
+					width="100%" 
+					height="100%">
+						<mx:Button id="buttonNew" 
+							label="{resourceManager.getString('ListOfRegions','new')}" 
+							click="newDistrict()" 
+							enabled="true"
+							keyDown="newKeyboardEventHandler(event)"/>							
+						<mx:Button 
+							id="buttonSave" 
+							label="{resourceManager.getString('ListOfRegions','save')}"
+							click="saveDistrict()"
+							keyDown="saveKeyboardEventHandler(event)"/>												
+						<mx:Button 
+							id="buttonDelete" 
+							label="{resourceManager.getString('ListOfRegions','delete')}" 
+							click="alertDeleteDistrict()"
+							keyDown="deleteKeyboardEventHandler(event)"/>
+						<mx:Button 
+							id="buttonReset" 
+							label="{resourceManager.getString('ListOfRegions','reset')}" 
+							click="resetDistrict()"
+							keyDown="resetKeyboardEventHandler(event)"/>
+				</mx:HBox>
+			</mx:ControlBar>
+		</mx:VBox>		
+	</mx:HBox>		
+</view:DistrictTabPanelViewBase>
